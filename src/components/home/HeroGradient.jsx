@@ -1,0 +1,235 @@
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Search, ChevronDown } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import antillaLogo from '@/assets/cards/logo.png';
+import { useLanguage } from '@/components/i18n/LanguageContext';
+
+export default function HeroGradient({ onLoginClick }) {
+  const { t } = useLanguage();
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (onLoginClick) {
+      onLoginClick();
+    }
+  };
+
+  return (
+    <div className="relative lg:min-h-[650px] pt-10 sm:pt-16 overflow-hidden flex items-center">
+      {/* Gradient Background - Soft Pastel */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-200/60 via-blue-200/50 to-cyan-100/60">
+        <div className="absolute inset-0 bg-gradient-to-r from-pink-100/40 via-transparent to-emerald-50/30" />
+        {/* Radial glows */}
+        <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-radial from-purple-200/30 to-transparent blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-radial from-cyan-200/30 to-transparent blur-3xl" />
+      </div>
+
+      {/* Diagonal Cut */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-white" 
+           style={{ clipPath: 'polygon(0 50%, 100% 0, 100% 100%, 0 100%)' }} />
+
+      {/* Content */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 w-full">
+        <div className="grid lg:grid-cols-2 gap-8 items-center">
+          {/* Left Column */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-8 md:mb-6 leading-tight text-center md:text-left">
+              <span className="text-gray-900">{t('home.hero.title')}</span>
+              <br />
+              <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent">
+                {t('home.hero.titleHighlight')}
+              </span>
+            </h1>
+            <p className="text-base md:text-xl text-gray-600 mb-6 md:mb-6 leading-relaxed max-w-2xl text-center md:text-left">
+              {t('home.hero.subtitle')}
+            </p>
+            
+            <div className="mt-12 sm:mt-4">
+              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 items-stretch">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={t('home.hero.emailPlaceholder')}
+                  className="flex-1 px-4 py-2.5 rounded-lg text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 bg-white shadow-lg h-12 text-sm"
+                />
+                <Button 
+                  type="submit"
+                  size="lg"
+                  className="bg-violet-600 hover:bg-violet-700 text-white rounded-lg px-6 whitespace-nowrap shadow-lg h-12 text-sm"
+                >
+                  {t('home.hero.cta')}
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </form>
+            </div>
+          </motion.div>
+
+          {/* Desktop Mockups - Hidden on mobile */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative h-[550px] hidden lg:block"
+          >
+            {/* Back Mockup - Analytics */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-0 right-[-5.5rem] w-[380px] bg-white rounded-2xl shadow-2xl transform rotate-1 overflow-hidden border border-gray-100"
+            >
+              {/* Panel Header */}
+              <div className="px-4 py-3 border-b border-gray-100 flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-gradient-to-br from-violet-500 to-purple-600 rounded-md flex items-center justify-center">
+                    <span className="text-white text-[10px] font-bold">A</span>
+                  </div>
+                  <span className="text-xs font-semibold text-slate-700">ANTILLA PAY</span>
+                  <ChevronDown className="w-3 h-3 text-gray-400" />
+                </div>
+                <div className="flex-1 flex items-center gap-2 bg-gray-50 rounded-md px-2 py-1.5">
+                  <Search className="w-3 h-3 text-gray-400" />
+                  <span className="text-[10px] text-gray-400">Búsqueda</span>
+                </div>
+              </div>
+
+              {/* Panel Content */}
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-slate-800 mb-3">Hoy</h3>
+                
+                {/* Volume Section */}
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] text-gray-500">Volumen neto</span>
+                      <ChevronDown className="w-2.5 h-2.5 text-gray-400" />
+                    </div>
+                    <div className="text-xl font-bold text-slate-800">USD3,528,198.72</div>
+                    <div className="text-[10px] text-gray-400">2:00 p.m.</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-[10px] text-gray-500 mb-1">Ayer</div>
+                    <div className="text-sm text-gray-600">USD2,931,556.34</div>
+                  </div>
+                </div>
+
+                {/* Mini Chart */}
+                <div className="h-12 mb-3 flex items-end gap-0.5">
+                  {[20, 15, 25, 18, 22, 30, 28, 35, 32, 40, 38, 45, 50, 55, 60].map((h, i) => (
+                    <div key={i} className="flex-1 bg-violet-100 rounded-t-sm" style={{ height: `${h}%` }} />
+                  ))}
+                  <div className="flex-1 flex flex-col items-center">
+                    <div className="w-1.5 h-1.5 bg-violet-600 rounded-lg mb-0.5" />
+                    <div className="flex-1 bg-violet-600 rounded-t-sm w-full" style={{ height: '70%' }} />
+                  </div>
+                </div>
+                <div className="flex justify-between text-[9px] text-gray-400 mb-4">
+                  <span>12:00 a.m.</span>
+                  <span className="text-violet-600 font-medium">Ahora, 2:00 p.m.</span>
+                </div>
+
+                {/* Stats Row */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-gray-50 rounded-lg p-2.5">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span className="text-[10px] text-gray-600">Volumen neto de ventas</span>
+                      <span className="text-[9px] text-emerald-500 font-medium">+32.8%</span>
+                    </div>
+                    <div className="text-sm font-bold text-slate-800">USD39,274.29</div>
+                    <div className="text-[9px] text-gray-400">USD29,573.54</div>
+                    {/* Mini line chart */}
+                    <svg className="w-full h-6 mt-1" viewBox="0 0 80 20">
+                      <polyline fill="none" stroke="#8b5cf6" strokeWidth="1.5" points="0,18 10,15 20,16 30,12 40,14 50,10 60,8 70,6 80,4" />
+                    </svg>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-2.5">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span className="text-[10px] text-gray-600">Clientes nuevos</span>
+                      <span className="text-[9px] text-emerald-500 font-medium">+32.1%</span>
+                    </div>
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="text-sm font-bold text-slate-800">37</span>
+                      <span className="text-[10px] text-gray-400">28</span>
+                    </div>
+                    {/* Mini line chart */}
+                    <svg className="w-full h-6 mt-1" viewBox="0 0 80 20">
+                      <polyline fill="none" stroke="#8b5cf6" strokeWidth="1.5" points="0,16 15,14 25,15 35,12 50,10 60,8 75,5 80,6" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Front Mockup - Checkout */}
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+              className="absolute top-20 left-6 w-[320px] bg-[#F8FAFC] rounded-2xl shadow-2xl overflow-hidden z-10 transform -rotate-6 border border-slate-200"
+            >
+              <div className="p-5">
+                <img
+                  src={antillaLogo}
+                  alt="AntillaPay"
+                  className="w-24 h-24 mx-auto mb-4 object-contain"
+                />
+
+                <label className="block text-sm font-semibold text-slate-700 mb-2">Método de pago</label>
+                <div className="rounded-xl border border-slate-200 bg-white overflow-hidden mb-4">
+                  <button className="w-full px-4 py-2.5 flex items-center gap-2 text-sm text-slate-700 border-b border-slate-100">
+                    <span className="w-4 h-4 rounded-full border border-slate-300" />
+                    <span>Cuenta Bancaria</span>
+                  </button>
+                  <button className="w-full px-4 py-2.5 flex items-center gap-2 text-sm text-slate-700 bg-slate-50">
+                    <span className="w-4 h-4 rounded-full border-2 border-[#5b5df0] flex items-center justify-center">
+                      <span className="w-2 h-2 rounded-full bg-[#5b5df0]" />
+                    </span>
+                    <span>Saldo Antilla</span>
+                  </button>
+                </div>
+
+                <div className="rounded-2xl border border-slate-200 bg-white p-3.5">
+                  <div className="flex items-start gap-2.5 mb-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#5b5df0] text-white flex items-center justify-center text-xs font-bold">A</div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-800">Iniciar sesión en Antilla</p>
+                      <p className="text-[11px] text-slate-500">Ingresa tus credenciales para continuar.</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    <div>
+                      <p className="text-[11px] text-slate-600 mb-1">Usuario</p>
+                      <input
+                        value="correo@ejemplo.com"
+                        readOnly
+                        className="w-full px-3 py-2 bg-[#F7F1D7] border border-amber-100 rounded-lg text-xs text-slate-600"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-[11px] text-slate-600 mb-1">Contraseña</p>
+                      <input
+                        value="••••••••"
+                        readOnly
+                        className="w-full px-3 py-2 bg-[#F7F1D7] border border-amber-100 rounded-lg text-xs text-slate-600"
+                      />
+                    </div>
+                  </div>
+
+                  <button className="mt-3 w-full bg-[#5b5df0] text-white py-2.5 rounded-lg font-semibold text-sm">
+                    Siguiente
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  );
+}
