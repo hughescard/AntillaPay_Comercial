@@ -4,12 +4,12 @@ import { translations, getNestedValue } from './translations';
 const LanguageContext = createContext();
 
 const STORAGE_KEY = 'antillapay_lang';
+const ENABLED_LANGUAGES = ['es', 'en'];
 
 // Detect browser language
 const detectBrowserLanguage = () => {
   const browserLang = navigator.language || navigator.userLanguage;
   if (browserLang.startsWith('es')) return 'es';
-  if (browserLang.startsWith('zh')) return 'zh-Hans';
   return 'en';
 };
 
@@ -17,7 +17,7 @@ const detectBrowserLanguage = () => {
 const getInitialLanguage = () => {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored && translations[stored]) {
+    if (stored && ENABLED_LANGUAGES.includes(stored) && translations[stored]) {
       return stored;
     }
   } catch (e) {
@@ -40,7 +40,7 @@ export const LanguageProvider = ({ children }) => {
   }, [language]);
 
   const changeLanguage = useCallback((lang) => {
-    if (translations[lang]) {
+    if (ENABLED_LANGUAGES.includes(lang) && translations[lang]) {
       setLanguage(lang);
       try {
         localStorage.setItem(STORAGE_KEY, lang);

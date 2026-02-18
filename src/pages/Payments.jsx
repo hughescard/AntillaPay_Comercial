@@ -7,177 +7,165 @@ import {
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { redirectToLogin } from '@/shared/auth/loginRedirect';
+import { useLanguage } from '@/components/i18n/LanguageContext';
 
 export default function Payments() {
   const [openFaq, setOpenFaq] = useState(null);
+  const { language } = useLanguage();
 
-  const paymentMethods = [
-    {
-      icon: Banknote,
-      title: 'Efectivo',
-      desc: 'Peso cubano (CUP) y USD en comercios autorizados',
-      color: 'bg-green-100 text-green-600',
-      details: [
-        'CUP: medio más común para compras del día a día',
-        'USD en efectivo en comercios autorizados'
-      ]
-    },
-    {
-      icon: QrCode,
-      title: 'Pagos QR',
-      desc: 'Transfermóvil y EnZona para pagos electrónicos',
-      color: 'bg-blue-100 text-blue-600',
-      details: [
-        'Transfermóvil: pagos en línea y QR',
-        'EnZona: escanea, ingresa importe y confirma'
-      ]
-    },
-    {
-      icon: CreditCard,
-      title: 'Tarjetas Nacionales',
-      desc: 'Tarjetas bancarias emitidas en Cuba',
-      color: 'bg-purple-100 text-purple-600',
-      details: [
-        'BANDEC, BPA, Metropolitano',
-        'Tarjetas prepagadas FINCIMEX'
-      ]
-    },
-    {
-      icon: Globe2,
-      title: 'Tarjetas Internacionales',
-      desc: 'MIR, UnionPay, Visa/Mastercard',
-      color: 'bg-orange-100 text-orange-600',
-      details: [
-        'MIR (Rusia): cajeros y POS',
-        'UnionPay (China): red local RED S.A.',
-        'Visa/Mastercard: según comercio'
-      ]
-    }
-  ];
-
-  const features = [
-    {
-      icon: QrCode,
-      title: 'Enlaces de pagos',
-      subtitle: 'Acepta tu primer pago en minutos, sin necesidad de programación',
-      desc: 'Comparte enlaces por correo electrónico, SMS o cualquier otro canal. Acepta pagos únicos, recurrentes o de importe personalizado.',
-      color: 'text-cyan-600',
-      bgColor: 'bg-cyan-50',
+  const copyByLanguage = {
+    es: {
+      backAria: 'Volver a la seccion interactiva del inicio',
+      heroTitle: 'Varias formas de aceptar pagos en linea',
+      heroDescription: 'Acepta pagos en efectivo, QR, tarjetas nacionales e internacionales. Soluciones adaptadas al mercado cubano.',
+      methodsTitle: 'Metodos de pago en Cuba',
+      methodsDescription: 'En Cuba conviven multiples formas de pago para adaptarse a las necesidades de comercios y clientes',
+      internationalTitle: 'Metodos de pago internacionales',
+      internationalDescription: 'Acepta pagos de clientes internacionales con las opciones mas populares',
+      merchantTitle: 'Que puede ofrecer un comercio?',
+      merchantDescription: 'Opciones tipicas que un negocio en Cuba puede implementar',
+      faqTitle: 'Preguntas frecuentes',
+      ctaTitle: 'Moderniza tu sistema de pagos',
+      ctaDescription: 'Acepta todas las formas de pago disponibles en Cuba y expande tu negocio',
+      ctaPrimary: 'Comenzar ahora',
+      ctaSecondary: 'Contactar ventas',
+      paymentMethods: [
+        {
+          icon: Banknote,
+          title: 'Efectivo',
+          desc: 'Peso cubano (CUP) y USD en comercios autorizados',
+          color: 'bg-green-100 text-green-600',
+          details: ['CUP: medio mas comun para compras del dia a dia', 'USD en efectivo en comercios autorizados'],
+        },
+        {
+          icon: QrCode,
+          title: 'Pagos QR',
+          desc: 'Transfermovil y EnZona para pagos electronicos',
+          color: 'bg-blue-100 text-blue-600',
+          details: ['Transfermovil: pagos en linea y QR', 'EnZona: escanea, ingresa importe y confirma'],
+        },
+        {
+          icon: CreditCard,
+          title: 'Tarjetas Nacionales',
+          desc: 'Tarjetas bancarias emitidas en Cuba',
+          color: 'bg-purple-100 text-purple-600',
+          details: ['BANDEC, BPA, Metropolitano', 'Tarjetas prepagadas FINCIMEX'],
+        },
+        {
+          icon: Globe2,
+          title: 'Tarjetas Internacionales',
+          desc: 'MIR, UnionPay, Visa/Mastercard',
+          color: 'bg-orange-100 text-orange-600',
+          details: ['MIR (Rusia): cajeros y POS', 'UnionPay (China): red local RED S.A.', 'Visa/Mastercard: segun comercio'],
+        },
+      ],
       features: [
-        'Comparte enlaces por correo electrónico, SMS o cualquier otro canal',
-        'Acepta pagos únicos, recurrentes o de importe personalizado',
-        'Convierte tu enlace en un código QR o en un botón de compra incrustable'
-      ]
+        {
+          icon: QrCode,
+          title: 'Enlaces de pagos',
+          subtitle: 'Acepta tu primer pago en minutos, sin necesidad de programacion',
+          color: 'text-cyan-600',
+          bgColor: 'bg-cyan-50',
+          features: [
+            'Comparte enlaces por correo electronico, SMS o cualquier otro canal',
+            'Acepta pagos unicos, recurrentes o de importe personalizado',
+            'Convierte tu enlace en un codigo QR o en un boton de compra incrustable',
+          ],
+        },
+        {
+          icon: Smartphone,
+          title: 'Checkout',
+          subtitle: 'Formulario de pago predisenado',
+          color: 'text-purple-600',
+          bgColor: 'bg-purple-50',
+          features: [
+            'Insertalo en tu sitio web o redirige a tus clientes a una pagina alojada en AntillaPay',
+            'Personaliza los colores y el tipo de fuente para que se ajuste a tu marca',
+            'Empieza a aceptar pagos recurrentes y activa AntillaPay Tax sin trabajo adicional de integracion',
+          ],
+        },
+      ],
+      internationalCards: [
+        { desc: 'Acepta el metodo de pago predominante en todo el mundo con una de las mayores redes de tarjetas.', badge: 'Tarjetas', color: 'bg-blue-600', logo: 'VISA' },
+        { desc: 'Acepta el metodo de pago predominante en todo el mundo con una de las mayores redes de tarjetas.', badge: 'Tarjetas', color: 'bg-orange-500', logo: 'mastercard' },
+        { desc: 'PayPal es una opcion de pago de confianza usada por millones de clientes en mas de 200 paises.', badge: 'Carteras digitales', color: 'bg-blue-600', logo: 'PayPal' },
+        { desc: 'Ofrece Google Pay listo para usar para clientes que ya lo tienen configurado.', badge: 'Carteras digitales', color: 'bg-blue-500', logo: 'G Pay' },
+        { desc: 'Permite pagar con la experiencia de checkout que millones de usuarios de Amazon ya conocen.', badge: 'Carteras digitales', color: 'bg-orange-500', logo: 'amazon pay' },
+        { desc: 'Permite a clientes de China y viajeros chinos pagar con Alipay en multiples monedas.', badge: 'Carteras digitales', color: 'bg-blue-500', logo: 'Alipay' },
+        { desc: 'Ofrece opciones de pago flexibles para que tus clientes elijan cuando y como pagar.', badge: 'Compra ahora, paga despues', color: 'bg-pink-400', logo: 'Klarna.' },
+        { desc: 'Ofrece una experiencia de pago fluida con Link para autocompletar datos de pago y envio.', badge: 'Carteras digitales', color: 'bg-green-600', logo: 'link' },
+        { desc: 'Llega a mas clientes globales con monedas estables como metodo de pago en checkout.', badge: 'Criptomoneda', color: 'bg-indigo-600', logo: '₡', subtitle: '(Version preliminar)' },
+        { desc: 'Las transferencias bancarias son ideales para transacciones puntuales de importes elevados.', badge: 'Transferencia bancaria', color: 'bg-purple-600', logo: 'USD' },
+        { desc: 'Acepta pagos de UnionPay con presencia en Cuba mediante cooperacion con RED S.A.', badge: 'Tarjetas', color: 'bg-red-600', logo: 'UnionPay' },
+        { desc: 'Sistema de pago ruso oficializado en Cuba para cajeros y terminales POS.', badge: 'Tarjetas', color: 'bg-green-700', logo: 'MIR' },
+      ],
+      merchantOptions: [
+        { icon: QrCode, title: 'Pagos QR', desc: 'Transfermovil y EnZona para pagos locales rapidos y seguros', color: 'bg-blue-100', iconColor: 'text-blue-600' },
+        { icon: CreditCard, title: 'Terminales POS', desc: 'Tarjetas nacionales e internacionales donde aplique', color: 'bg-purple-100', iconColor: 'text-purple-600' },
+        { icon: Banknote, title: 'Efectivo', desc: 'CUP y USD en circuitos autorizados', color: 'bg-green-100', iconColor: 'text-green-600' },
+      ],
+      faqs: [
+        { q: 'Que metodos de pago estan disponibles en Cuba?', a: 'En Cuba conviven efectivo (CUP y USD), pagos electronicos nacionales (Transfermovil y EnZona), tarjetas bancarias cubanas e internacionales segun comercio.' },
+        { q: 'Como funcionan los pagos con QR en Cuba?', a: 'Se realizan principalmente con Transfermovil y EnZona: el cliente escanea, confirma importe y autoriza con su tarjeta asociada.' },
+        { q: 'Que tarjetas internacionales se aceptan?', a: 'Se aceptan MIR, UnionPay y en algunos comercios Visa/Mastercard, segun restricciones y red de adquirencia.' },
+        { q: 'Que puede ofrecer un comercio en Cuba?', a: 'Un comercio puede combinar pagos QR, terminales POS para tarjetas y efectivo en circuitos autorizados.' },
+      ],
     },
-    {
-      icon: Smartphone,
-      title: 'Checkout',
-      subtitle: 'Formulario de pago prediseñado',
-      desc: 'Acelera tu lanzamiento gracias a un proceso de finalización de compra optimizado para la conversión.',
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50',
+    en: {
+      backAria: 'Back to interactive homepage section',
+      heroTitle: 'Multiple ways to accept online payments',
+      heroDescription: 'Accept cash, QR, domestic cards, and international cards. Solutions adapted to the Cuban market.',
+      methodsTitle: 'Payment methods in Cuba',
+      methodsDescription: 'Cuba combines multiple payment methods to adapt to merchant and customer needs.',
+      internationalTitle: 'International payment methods',
+      internationalDescription: 'Accept international customer payments with the most popular options.',
+      merchantTitle: 'What can a merchant offer?',
+      merchantDescription: 'Typical options a business in Cuba can implement.',
+      faqTitle: 'Frequently asked questions',
+      ctaTitle: 'Modernize your payment stack',
+      ctaDescription: 'Accept all payment methods available in Cuba and expand your business.',
+      ctaPrimary: 'Start now',
+      ctaSecondary: 'Contact sales',
+      paymentMethods: [
+        { icon: Banknote, title: 'Cash', desc: 'Cuban peso (CUP) and USD in authorized stores', color: 'bg-green-100 text-green-600', details: ['CUP: most common for daily purchases', 'USD cash in authorized stores'] },
+        { icon: QrCode, title: 'QR payments', desc: 'Transfermovil and EnZona for electronic payments', color: 'bg-blue-100 text-blue-600', details: ['Transfermovil: online and QR payments', 'EnZona: scan, enter amount, and confirm'] },
+        { icon: CreditCard, title: 'Domestic cards', desc: 'Bank cards issued in Cuba', color: 'bg-purple-100 text-purple-600', details: ['BANDEC, BPA, Metropolitano', 'FINCIMEX prepaid cards'] },
+        { icon: Globe2, title: 'International cards', desc: 'MIR, UnionPay, Visa/Mastercard', color: 'bg-orange-100 text-orange-600', details: ['MIR (Russia): ATMs and POS', 'UnionPay (China): local RED S.A. network', 'Visa/Mastercard: depends on merchant'] },
+      ],
       features: [
-        'Insértalo en tu sitio web o redirige a tus clientes a una página alojada en AntillaPay',
-        'Personaliza los colores y el tipo de fuente para que se ajuste a tu marca',
-        'Empieza a aceptar pagos recurrentes y activa AntillaPay Tax sin ningún trabajo adicional de integración'
-      ]
-    }
-  ];
+        { icon: QrCode, title: 'Payment links', subtitle: 'Accept your first payment in minutes without coding', color: 'text-cyan-600', bgColor: 'bg-cyan-50', features: ['Share links by email, SMS, or any channel', 'Accept one-time, recurring, or custom-amount payments', 'Convert links into QR codes or embedded buy buttons'] },
+        { icon: Smartphone, title: 'Checkout', subtitle: 'Prebuilt payment form', color: 'text-purple-600', bgColor: 'bg-purple-50', features: ['Embed on your site or redirect to an AntillaPay hosted page', 'Customize colors and typography to match your brand', 'Start recurring payments and enable AntillaPay Tax with no extra integration'] },
+      ],
+      internationalCards: [
+        { desc: 'Accept the most common global payment method with one of the largest card networks.', badge: 'Cards', color: 'bg-blue-600', logo: 'VISA' },
+        { desc: 'Accept the most common global payment method with one of the largest card networks.', badge: 'Cards', color: 'bg-orange-500', logo: 'mastercard' },
+        { desc: 'PayPal is a trusted payment option used by hundreds of millions of customers in 200+ countries.', badge: 'Digital wallets', color: 'bg-blue-600', logo: 'PayPal' },
+        { desc: 'Offer Google Pay to customers who already have it set up on device or browser.', badge: 'Digital wallets', color: 'bg-blue-500', logo: 'G Pay' },
+        { desc: 'Let customers pay with the familiar Amazon checkout experience.', badge: 'Digital wallets', color: 'bg-orange-500', logo: 'amazon pay' },
+        { desc: 'Allow customers from China and Chinese travelers to pay with Alipay.', badge: 'Digital wallets', color: 'bg-blue-500', logo: 'Alipay' },
+        { desc: 'Offer flexible buy-now-pay-later options to give customers more freedom.', badge: 'Buy now, pay later', color: 'bg-pink-400', logo: 'Klarna.' },
+        { desc: 'Offer a frictionless payment experience with Link and autofilled payment details.', badge: 'Digital wallets', color: 'bg-green-600', logo: 'link' },
+        { desc: 'Reach more global customers by offering stablecoins directly in checkout.', badge: 'Cryptocurrency', color: 'bg-indigo-600', logo: '₡', subtitle: '(Preview)' },
+        { desc: 'Bank transfers are ideal for large one-time transactions such as B2B payments.', badge: 'Bank transfer', color: 'bg-purple-600', logo: 'USD' },
+        { desc: 'Accept UnionPay, China largest card network, with local coverage in Cuba.', badge: 'Cards', color: 'bg-red-600', logo: 'UnionPay' },
+        { desc: 'Russian payment system enabled in Cuba for ATMs and POS terminals.', badge: 'Cards', color: 'bg-green-700', logo: 'MIR' },
+      ],
+      merchantOptions: [
+        { icon: QrCode, title: 'QR payments', desc: 'Transfermovil and EnZona for fast local payments', color: 'bg-blue-100', iconColor: 'text-blue-600' },
+        { icon: CreditCard, title: 'POS terminals', desc: 'Domestic and international cards where applicable', color: 'bg-purple-100', iconColor: 'text-purple-600' },
+        { icon: Banknote, title: 'Cash', desc: 'CUP and USD in authorized circuits', color: 'bg-green-100', iconColor: 'text-green-600' },
+      ],
+      faqs: [
+        { q: 'What payment methods are available in Cuba?', a: 'Cuba combines cash (CUP and USD), domestic electronic payments (Transfermovil and EnZona), local bank cards, and some international cards.' },
+        { q: 'How do QR payments work in Cuba?', a: 'Customers pay mostly through Transfermovil and EnZona by scanning the QR, entering amount, and confirming with their linked card.' },
+        { q: 'Which international cards are accepted?', a: 'MIR and UnionPay are accepted, and Visa/Mastercard in some merchants depending on acquiring network and restrictions.' },
+        { q: 'What can a merchant in Cuba offer?', a: 'A merchant can combine QR payments, POS card acceptance, and cash in authorized operating circuits.' },
+      ],
+    },
+  };
 
-  const internationalCards = [
-    {
-      desc: 'Acepta el método de pago predominante en todo el mundo con una de las mayores redes de tarjetas del mundo.',
-      badge: 'Tarjetas',
-      color: 'bg-blue-600',
-      logo: 'VISA'
-    },
-    {
-      desc: 'Acepta el método de pago predominante en todo el mundo con una de las mayores redes de tarjetas del mundo.',
-      badge: 'Tarjetas',
-      color: 'bg-orange-500',
-      logo: 'mastercard'
-    },
-    {
-      desc: 'PayPal es una opción de pago de confianza utilizada por cientos de millones de clientes de todo el mundo en más de 200 países para pagar de forma segura.',
-      badge: 'Carteras digitales',
-      color: 'bg-blue-600',
-      logo: 'PayPal'
-    },
-    {
-      desc: 'Ofrece Google Pay listo para usar a los clientes que lo tienen configurado en su dispositivo o navegador.',
-      badge: 'Carteras digitales',
-      color: 'bg-blue-500',
-      logo: 'G Pay'
-    },
-    {
-      desc: 'Permite que tus clientes paguen mediante la misma experiencia de proceso de compra que millones de usuarios de Amazon conocen y eligen.',
-      badge: 'Carteras digitales',
-      color: 'bg-orange-500',
-      logo: 'amazon pay'
-    },
-    {
-      desc: 'Permite a los clientes de China, además de a los viajeros chinos, pagar con Alipay en 11 monedas principales.',
-      badge: 'Carteras digitales',
-      color: 'bg-blue-500',
-      logo: 'Alipay'
-    },
-    {
-      desc: 'Ofrece opciones de pago flexibles que dan a tus clientes más libertad para elegir cuándo y cómo pagar sus compras. Accede a más de 150 millones de consumidores en 27 mercados.',
-      badge: 'Compra ahora, paga después',
-      color: 'bg-pink-400',
-      logo: 'Klarna.'
-    },
-    {
-      desc: 'Ofrece una experiencia de pagos fluida y sin fricciones con Link, el método de pago que rellena automáticamente los datos de pago y envío del cliente.',
-      badge: 'Carteras digitales',
-      color: 'bg-green-600',
-      logo: 'link'
-    },
-    {
-      desc: 'Llega a más clientes globales, reduce los costos y minimiza las tarifas de cambio internacional ofreciendo monedas estables como método de pago directamente en tu proceso de compra.',
-      badge: 'Criptomoneda',
-      color: 'bg-indigo-600',
-      logo: '₡',
-      subtitle: '(Versión preliminar)'
-    },
-    {
-      desc: 'Las transferencias bancarias son ideales para transacciones puntuales de importes elevados (como los pagos B2B) porque tienen los costos de transacción más bajos y reducen la carga operativa.',
-      badge: 'Transferencia bancaria',
-      color: 'bg-purple-600',
-      logo: 'USD'
-    },
-    {
-      desc: 'Acepta pagos de la red de tarjetas más grande de China, con presencia en Cuba mediante cooperación con RED S.A.',
-      badge: 'Tarjetas',
-      color: 'bg-red-600',
-      logo: 'UnionPay'
-    },
-    {
-      desc: 'Sistema de pago ruso oficializado en Cuba para cajeros automáticos y terminales punto de venta (POS).',
-      badge: 'Tarjetas',
-      color: 'bg-green-700',
-      logo: 'MIR'
-    }
-  ];
-
-  const faqs = [
-    {
-      q: '¿Qué métodos de pago están disponibles en Cuba?',
-      a: 'En Cuba conviven varios métodos: efectivo (CUP y USD en comercios autorizados), pagos electrónicos nacionales (Transfermóvil y EnZona con QR), tarjetas bancarias cubanas (BANDEC, BPA, Metropolitano, FINCIMEX), y tarjetas internacionales (MIR, UnionPay, Visa/Mastercard según el comercio).'
-    },
-    {
-      q: '¿Cómo funcionan los pagos con QR en Cuba?',
-      a: 'Los pagos QR en Cuba se realizan principalmente a través de Transfermóvil (ETECSA) y EnZona. El cliente escanea el código QR del comercio, ingresa el importe y confirma el pago usando su tarjeta bancaria asociada.'
-    },
-    {
-      q: '¿Qué tarjetas internacionales se aceptan?',
-      a: 'Se aceptan tarjetas MIR (Rusia) en cajeros automáticos y POS, UnionPay (China) mediante cooperación con RED S.A., y Visa/Mastercard en determinados comercios según restricciones y red de adquirencia.'
-    },
-    {
-      q: '¿Qué puede ofrecer un comercio en Cuba?',
-      a: 'Un comercio típicamente puede ofrecer: pagos QR (Transfermóvil/EnZona) para transacciones locales, terminales POS para tarjetas nacionales e internacionales donde aplique, y aceptación de efectivo en CUP y USD (en circuitos autorizados).'
-    }
-  ];
+  const copy = copyByLanguage[language] || copyByLanguage.en;
+  const { paymentMethods, features, internationalCards, merchantOptions, faqs } = copy;
 
   return (
     <div className="min-h-screen bg-white">
@@ -194,7 +182,7 @@ export default function Payments() {
               <Link
                 to="/?section=modular&slide=2#soluciones-modulares"
                 className="inline-flex items-center justify-center w-11 h-11 rounded-lg border border-gray-200 bg-white text-blue-900 shadow-sm hover:bg-gray-50 hover:text-blue-900 transition-colors"
-                aria-label="Volver a la sección interactiva del inicio"
+                aria-label={copy.backAria}
               >
                 <ArrowLeft className="w-6 h-6 text-blue-900" />
               </Link>
@@ -202,18 +190,18 @@ export default function Payments() {
 
             <div className="relative flex items-center justify-center">
               <h1 className="text-5xl lg:text-6xl font-bold text-blue-900 mb-0 text-center">
-                Varias formas de aceptar pagos en línea
+                {copy.heroTitle}
               </h1>
               <Link
                 to="/?section=modular&slide=2#soluciones-modulares"
                 className="hidden sm:inline-flex items-center justify-center w-11 h-11 rounded-lg border border-gray-200 bg-white text-blue-900 shadow-sm hover:bg-gray-50 hover:text-blue-900 transition-colors absolute right-0 top-1/2 -translate-y-1/2"
-                aria-label="Volver a la sección interactiva del inicio"
+                aria-label={copy.backAria}
               >
                 <ArrowLeft className="w-6 h-6 text-blue-900" />
               </Link>
             </div>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto mt-6 mb-8">
-              Acepta pagos en efectivo, QR, tarjetas nacionales e internacionales. Soluciones adaptadas al mercado cubano.
+              {copy.heroDescription}
             </p>
           </motion.div>
         </div>
@@ -229,10 +217,10 @@ export default function Payments() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Métodos de pago en Cuba
+              {copy.methodsTitle}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              En Cuba conviven múltiples formas de pago para adaptarse a las necesidades de comercios y clientes
+              {copy.methodsDescription}
             </p>
           </motion.div>
 
@@ -321,10 +309,10 @@ export default function Payments() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Métodos de pago internacionales
+              {copy.internationalTitle}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Acepta pagos de clientes internacionales con las opciones más populares
+              {copy.internationalDescription}
             </p>
           </motion.div>
 
@@ -383,37 +371,15 @@ export default function Payments() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              ¿Qué puede ofrecer un comercio?
+              {copy.merchantTitle}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Opciones típicas que un negocio en Cuba puede implementar
+              {copy.merchantDescription}
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { 
-                icon: QrCode, 
-                title: 'Pagos QR', 
-                desc: 'Transfermóvil y EnZona para pagos locales rápidos y seguros',
-                color: 'bg-blue-100',
-                iconColor: 'text-blue-600'
-              },
-              { 
-                icon: CreditCard, 
-                title: 'Terminales POS', 
-                desc: 'Tarjetas nacionales e internacionales donde aplique',
-                color: 'bg-purple-100',
-                iconColor: 'text-purple-600'
-              },
-              { 
-                icon: Banknote, 
-                title: 'Efectivo', 
-                desc: 'CUP y USD en circuitos autorizados',
-                color: 'bg-green-100',
-                iconColor: 'text-green-600'
-              }
-            ].map((item, i) => {
+            {merchantOptions.map((item, i) => {
               const Icon = item.icon;
               return (
                 <motion.div
@@ -448,7 +414,7 @@ export default function Payments() {
             className="text-center mb-12"
           >
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Preguntas frecuentes
+              {copy.faqTitle}
             </h2>
           </motion.div>
 
@@ -502,10 +468,10 @@ export default function Payments() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl font-bold mb-6">
-              Moderniza tu sistema de pagos
+              {copy.ctaTitle}
             </h2>
             <p className="text-xl mb-8 text-violet-100">
-              Acepta todas las formas de pago disponibles en Cuba y expande tu negocio
+              {copy.ctaDescription}
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button 
@@ -513,7 +479,7 @@ export default function Payments() {
                 className="bg-white text-violet-600 hover:bg-gray-100 rounded-lg px-6 py-2 text-sm font-medium shadow-md shadow-violet-600/20 transition-all hover:shadow-lg hover:shadow-violet-600/30 active:scale-[0.98]"
                 onClick={redirectToLogin}
               >
-                Comenzar ahora
+                {copy.ctaPrimary}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <Button 
@@ -521,7 +487,7 @@ export default function Payments() {
                 className="bg-white text-violet-600 hover:bg-gray-100 rounded-lg px-6 py-2 text-sm font-medium shadow-md shadow-violet-600/20 transition-all hover:shadow-lg hover:shadow-violet-600/30 active:scale-[0.98]"
                 onClick={() => window.location.href = '/contact'}
               >
-                Contactar ventas
+                {copy.ctaSecondary}
               </Button>
             </div>
           </motion.div>

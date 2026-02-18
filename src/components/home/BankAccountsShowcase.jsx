@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Landmark, Users, Wallet } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { useLanguage } from '../i18n/LanguageContext';
 import cardBanes from '@/assets/cards/bandes-prepaid-tropical.png';
 import cardClasicaEmpresarial from '@/assets/cards/clasica-empresariales.png';
 import cardMetropolitana from '@/assets/cards/metropolitana.png';
@@ -34,21 +35,21 @@ const TILES = [
 const BANK_CARDS = [
   {
     id: 'clasica-empresarial',
-    name: 'Clásica Empresarial',
+    key: 'classicBusiness',
     bank: 'BANDEC',
     currency: 'USD',
     image: cardClasicaEmpresarial,
   },
   {
     id: 'metropolitana',
-    name: 'Metropolitana',
+    key: 'metropolitan',
     bank: 'Banco Metropolitano',
     currency: 'CUP',
     image: cardMetropolitana,
   },
   {
     id: 'bandes-tropical',
-    name: 'Bandes Tropical',
+    key: 'bandesTropical',
     bank: 'BANDEC',
     currency: 'USD',
     image: cardBanes,
@@ -58,6 +59,45 @@ const BANK_CARDS = [
 const CARD_STEP_DESKTOP = 360;
 
 export default function BankAccountsShowcase() {
+  const { language } = useLanguage();
+  const copyByLanguage = {
+    es: {
+      badge: 'Gestion bancaria',
+      title: 'Gestiona tus cuentas bancarias con claridad',
+      description: 'Conecta cuentas nacionales, valida titulares, consulta saldos y mueve fondos desde un flujo unificado dentro del dashboard.',
+      linkedAccount: 'Cuenta vinculada',
+      active: 'Activa',
+      bank: 'Banco',
+      currency: 'Moneda',
+      holder: 'Titular',
+      verified: 'Verificado',
+      showCard: 'Mostrar tarjeta',
+      cardNames: {
+        classicBusiness: 'Clasica Empresarial',
+        metropolitan: 'Metropolitana',
+        bandesTropical: 'Bandes Tropical',
+      },
+    },
+    en: {
+      badge: 'Bank management',
+      title: 'Manage your bank accounts with clarity',
+      description: 'Connect domestic accounts, validate holders, check balances, and move funds from one unified dashboard flow.',
+      linkedAccount: 'Linked account',
+      active: 'Active',
+      bank: 'Bank',
+      currency: 'Currency',
+      holder: 'Holder',
+      verified: 'Verified',
+      showCard: 'Show card',
+      cardNames: {
+        classicBusiness: 'Classic Business',
+        metropolitan: 'Metropolitan',
+        bandesTropical: 'Bandes Tropical',
+      },
+    },
+  };
+  const copy = copyByLanguage[language] || copyByLanguage.en;
+
   const [hoveredTile, setHoveredTile] = useState(null);
   const [currentCard, setCurrentCard] = useState(0);
   const [highlightedConnections, setHighlightedConnections] = useState([]);
@@ -156,13 +196,13 @@ export default function BankAccountsShowcase() {
             className="text-center lg:text-left"
           >
             <div className="inline-flex items-center justify-center lg:justify-start gap-2 text-sm font-semibold mb-4 w-full lg:w-auto text-indigo-600">
-              Gestión bancaria
+              {copy.badge}
             </div>
             <h2 className="text-4xl lg:text-6xl font-bold text-slate-900 mb-4 leading-tight lg:leading-[1.08] tracking-tight">
-              Gestiona tus cuentas bancarias con claridad
+              {copy.title}
             </h2>
             <p className="text-base md:text-xl text-slate-600 mb-6 leading-relaxed max-w-lg mx-auto lg:mx-0">
-              Conecta cuentas nacionales, valida titulares, consulta saldos y mueve fondos desde un flujo unificado dentro del dashboard.
+              {copy.description}
             </p>
           </motion.div>
 
@@ -220,30 +260,30 @@ export default function BankAccountsShowcase() {
                     >
                       <div className="flex items-center justify-between mb-3">
                         <div>
-                          <p className="text-xs text-slate-500">Cuenta vinculada</p>
-                          <p className="text-base font-semibold text-slate-900">{card.name}</p>
+                          <p className="text-xs text-slate-500">{copy.linkedAccount}</p>
+                          <p className="text-base font-semibold text-slate-900">{copy.cardNames[card.key]}</p>
                         </div>
                         <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700">
-                          Activa
+                          {copy.active}
                         </span>
                       </div>
 
                       <div className="h-[190px] rounded-2xl bg-gradient-to-br from-slate-100 to-white border border-slate-200 p-2 flex items-center justify-center">
-                        <img src={card.image} alt={card.name} className="max-h-full w-full object-contain" loading="lazy" decoding="async" />
+                        <img src={card.image} alt={copy.cardNames[card.key]} className="max-h-full w-full object-contain" loading="lazy" decoding="async" />
                       </div>
 
                       <div className="grid grid-cols-3 gap-2 mt-3">
                         <div className="rounded-xl bg-slate-50 border border-slate-200 p-2">
-                          <p className="text-[10px] text-slate-500">Banco</p>
+                          <p className="text-[10px] text-slate-500">{copy.bank}</p>
                           <p className="text-xs font-semibold text-slate-800 truncate">{card.bank}</p>
                         </div>
                         <div className="rounded-xl bg-slate-50 border border-slate-200 p-2">
-                          <p className="text-[10px] text-slate-500">Moneda</p>
+                          <p className="text-[10px] text-slate-500">{copy.currency}</p>
                           <p className="text-xs font-semibold text-slate-800">{card.currency}</p>
                         </div>
                         <div className="rounded-xl bg-slate-50 border border-slate-200 p-2">
-                          <p className="text-[10px] text-slate-500">Titular</p>
-                          <p className="text-xs font-semibold text-slate-800">Verificado</p>
+                          <p className="text-[10px] text-slate-500">{copy.holder}</p>
+                          <p className="text-xs font-semibold text-slate-800">{copy.verified}</p>
                         </div>
                       </div>
                     </motion.div>
@@ -257,7 +297,7 @@ export default function BankAccountsShowcase() {
                       type="button"
                       onClick={() => setCurrentCard(i)}
                       className={`h-1.5 rounded-full transition-all ${i === currentCard ? 'w-7 bg-indigo-600' : 'w-1.5 bg-slate-300'}`}
-                      aria-label={`Mostrar tarjeta ${i + 1}`}
+                      aria-label={`${copy.showCard} ${i + 1}`}
                     />
                   ))}
                 </div>
@@ -316,9 +356,9 @@ export default function BankAccountsShowcase() {
               className="relative bg-white rounded-3xl shadow-xl border border-slate-200 p-4 w-full max-w-sm mx-auto"
             >
               <div className="h-[180px] rounded-2xl bg-gradient-to-br from-slate-100 to-white border border-slate-200 p-2 flex items-center justify-center mb-3">
-                <img src={BANK_CARDS[currentCard].image} alt={BANK_CARDS[currentCard].name} className="max-h-full w-full object-contain" loading="lazy" decoding="async" />
+                <img src={BANK_CARDS[currentCard].image} alt={copy.cardNames[BANK_CARDS[currentCard].key]} className="max-h-full w-full object-contain" loading="lazy" decoding="async" />
               </div>
-              <p className="text-sm font-semibold text-slate-900">{BANK_CARDS[currentCard].name}</p>
+              <p className="text-sm font-semibold text-slate-900">{copy.cardNames[BANK_CARDS[currentCard].key]}</p>
               <p className="text-xs text-slate-500">{BANK_CARDS[currentCard].bank} · {BANK_CARDS[currentCard].currency}</p>
               <div className="mt-3 flex items-center gap-2 justify-center">
                 {BANK_CARDS.map((card, i) => (
@@ -327,7 +367,7 @@ export default function BankAccountsShowcase() {
                     type="button"
                     onClick={() => setCurrentCard(i)}
                     className={`h-1.5 rounded-full transition-all ${i === currentCard ? 'w-7 bg-indigo-600' : 'w-1.5 bg-slate-300'}`}
-                    aria-label={`Mostrar tarjeta ${i + 1}`}
+                    aria-label={`${copy.showCard} ${i + 1}`}
                   />
                 ))}
               </div>

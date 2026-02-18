@@ -4,7 +4,30 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '../components/i18n/LanguageContext';
 
 export default function GlobalPayouts() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  const featuresByLanguage = {
+    es: [
+      { icon: Globe2, title: '100+ países', desc: 'Envía pagos a todo el mundo' },
+      { icon: DollarSign, title: 'Múltiples monedas', desc: 'Soporte para 135+ divisas' },
+      { icon: Clock, title: 'Pagos rápidos', desc: 'Transferencias en 1-3 días hábiles' },
+      { icon: Shield, title: 'Seguro y confiable', desc: 'Cumplimiento regulatorio global' },
+    ],
+    en: [
+      { icon: Globe2, title: '100+ countries', desc: 'Send payouts worldwide' },
+      { icon: DollarSign, title: 'Multiple currencies', desc: 'Support for 135+ currencies' },
+      { icon: Clock, title: 'Fast payouts', desc: 'Transfers in 1-3 business days' },
+      { icon: Shield, title: 'Secure and reliable', desc: 'Global regulatory compliance' },
+    ],
+    "zh-Hans": [
+      { icon: Globe2, title: '100+ 国家', desc: '向全球发送付款' },
+      { icon: DollarSign, title: '多币种', desc: '支持 135+ 种货币' },
+      { icon: Clock, title: '快速到账', desc: '1-3 个工作日转账' },
+      { icon: Shield, title: '安全可靠', desc: '符合全球监管要求' },
+    ],
+  };
+
+  const features = featuresByLanguage[language] || featuresByLanguage.en;
 
   return (
     <div className="pt-24 pb-20 min-h-screen bg-gradient-to-br from-cyan-50 to-white">
@@ -33,12 +56,7 @@ export default function GlobalPayouts() {
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Globe2, title: '100+ países', desc: 'Envía pagos a todo el mundo' },
-              { icon: DollarSign, title: 'Múltiples monedas', desc: 'Soporte para 135+ divisas' },
-              { icon: Clock, title: 'Pagos rápidos', desc: 'Transferencias en 1-3 días hábiles' },
-              { icon: Shield, title: 'Seguro y confiable', desc: 'Cumplimiento regulatorio global' }
-            ].map((feature, i) => (
+            {features.map((feature, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}

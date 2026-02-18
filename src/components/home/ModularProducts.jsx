@@ -17,14 +17,14 @@ import { createPageUrl } from '@/utils';
 import { useLanguage } from '@/components/i18n/LanguageContext';
 
 const TILE_CONFIG = [
-  { id: 'cobros', name: 'Cobros', icon: CreditCard, color: '#635BFF', route: 'payments', left: '45%', top: '50%' },
-  { id: 'saldos', name: 'Saldos', icon: DollarSign, color: '#10B981', route: 'financial-accounts', left: '25%', top: '20%' },
-  { id: 'clientes', name: 'Clientes', icon: Users, color: '#0EA5E9', route: 'companies', left: '70%', top: '22%' },
-  { id: 'catalogo', name: 'Catálogo', icon: Package, color: '#F59E0B', route: 'products', left: '20%', top: '60%' },
-  { id: 'payment_links', name: 'Payment Links', icon: Link2, color: '#8B5CF6', route: 'payment-links', left: '70%', top: '60%' },
-  { id: 'transferencias', name: 'Transferencias', icon: ArrowLeftRight, color: '#14B8A6', route: 'global-payouts', left: '45%', top: '82%' },
-  { id: 'webhooks', name: 'Webhooks', icon: Activity, color: '#06B6D4', route: 'developers', left: '85%', top: '45%' },
-  { id: 'api_keys', name: 'Claves API', icon: Key, color: '#64748B', route: 'developers', left: '10%', top: '45%' },
+  { id: 'cobros', icon: CreditCard, color: '#635BFF', route: 'payments', left: '45%', top: '50%' },
+  { id: 'saldos', icon: DollarSign, color: '#10B981', route: 'financial-accounts', left: '25%', top: '20%' },
+  { id: 'clientes', icon: Users, color: '#0EA5E9', route: 'companies', left: '70%', top: '22%' },
+  { id: 'catalogo', icon: Package, color: '#F59E0B', route: 'products', left: '20%', top: '60%' },
+  { id: 'payment_links', icon: Link2, color: '#8B5CF6', route: 'payment-links', left: '70%', top: '60%' },
+  { id: 'transferencias', icon: ArrowLeftRight, color: '#14B8A6', route: 'global-payouts', left: '45%', top: '82%' },
+  { id: 'webhooks', icon: Activity, color: '#06B6D4', route: 'developers', left: '85%', top: '45%' },
+  { id: 'api_keys', icon: Key, color: '#64748B', route: 'developers', left: '10%', top: '45%' },
 ];
 
 const CONNECTIONS = [
@@ -50,7 +50,36 @@ const createSlides = (items) => {
 };
 
 export default function ModularProducts() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const tileLabelsByLanguage = {
+    es: {
+      cobros: 'Cobros',
+      saldos: 'Saldos',
+      clientes: 'Clientes',
+      catalogo: 'Catalogo',
+      payment_links: 'Payment Links',
+      transferencias: 'Transferencias',
+      webhooks: 'Webhooks',
+      api_keys: 'Claves API',
+      prev: 'Anterior',
+      next: 'Siguiente',
+      goToSlide: 'Ir a slide',
+    },
+    en: {
+      cobros: 'Payments',
+      saldos: 'Balances',
+      clientes: 'Customers',
+      catalogo: 'Catalog',
+      payment_links: 'Payment Links',
+      transferencias: 'Transfers',
+      webhooks: 'Webhooks',
+      api_keys: 'API Keys',
+      prev: 'Previous',
+      next: 'Next',
+      goToSlide: 'Go to slide',
+    },
+  };
+  const labels = tileLabelsByLanguage[language] || tileLabelsByLanguage.en;
   const [hoveredTile, setHoveredTile] = useState(null);
   const [highlightedConnections, setHighlightedConnections] = useState([]);
   const [tilePositions, setTilePositions] = useState({});
@@ -291,7 +320,7 @@ export default function ModularProducts() {
                       }}
                       onMouseEnter={() => setHoveredTile(tile.id)}
                       onMouseLeave={() => setHoveredTile(null)}
-                      aria-label={`${t('home.modular.goTo')} ${tile.name}`}
+                      aria-label={`${t('home.modular.goTo')} ${labels[tile.id]}`}
                     >
                       <div className="flex-none h-6 flex items-center justify-center">
                         <Icon 
@@ -303,7 +332,7 @@ export default function ModularProducts() {
                         />
                       </div>
                       <span className="text-[10px] text-center leading-tight px-1" style={{ lineHeight: '1.1' }}>
-                        {tile.name}
+                        {labels[tile.id]}
                       </span>
                     </Link>
                   </div>
@@ -342,7 +371,7 @@ export default function ModularProducts() {
                       >
                         <tile.icon className="w-5 h-5" style={{ color: tile.color }} />
                       </div>
-                      <span className="text-xs font-medium text-gray-900 text-center">{tile.name}</span>
+                      <span className="text-xs font-medium text-gray-900 text-center">{labels[tile.id]}</span>
                     </Link>
                   ))}
                 </motion.div>
@@ -353,7 +382,7 @@ export default function ModularProducts() {
                 <button
                   onClick={prevSlide}
                   className="p-2 rounded-lg bg-white shadow-md hover:bg-gray-50 transition-colors"
-                  aria-label="Anterior"
+                  aria-label={labels.prev}
                 >
                   <ChevronLeft className="w-5 h-5 text-gray-700" />
                 </button>
@@ -369,7 +398,7 @@ export default function ModularProducts() {
                       className={`w-2 h-2 rounded-lg transition-colors ${
                         index === currentSlide ? 'bg-gray-800' : 'bg-gray-300'
                       }`}
-                      aria-label={`Ir a slide ${index + 1}`}
+                      aria-label={`${labels.goToSlide} ${index + 1}`}
                     />
                   ))}
                 </div>
@@ -377,7 +406,7 @@ export default function ModularProducts() {
                 <button
                   onClick={nextSlide}
                   className="p-2 rounded-lg bg-white shadow-md hover:bg-gray-50 transition-colors"
-                  aria-label="Siguiente"
+                  aria-label={labels.next}
                 >
                   <ChevronRight className="w-5 h-5 text-gray-700" />
                 </button>

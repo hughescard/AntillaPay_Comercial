@@ -4,40 +4,48 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../components/i18n/LanguageContext';
 
 export default function FinancialAccounts() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
-  const features = [
-    { 
-      icon: Wallet, 
-      title: 'Cuentas en USD, MLC y MN', 
-      desc: 'Maneja tanto moneda nacional como divisas en una sola plataforma' 
+  const copyByLanguage = {
+    es: {
+      title: "Cuentas Financieras en Cuba",
+      subtitle: "Gestiona tu dinero de forma segura y eficiente",
+      features: [
+        { icon: Wallet, title: 'Cuentas en USD, MLC y MN', desc: 'Maneja tanto moneda nacional como divisas en una sola plataforma' },
+        { icon: CreditCard, title: 'Tarjetas Clásicas y Tropicales', desc: 'Aceptación en comercios que operan con tarjetas clásicas y tropicales' },
+        { icon: Banknote, title: 'Transferencias', desc: 'Realiza envíos nacionales e internacionales' },
+        { icon: ShieldCheck, title: 'Seguridad', desc: 'Protección avanzada para tus transacciones' },
+        { icon: BarChart, title: 'Estadísticas', desc: 'Seguimiento detallado de tus finanzas' },
+        { icon: Building2, title: 'Empresas', desc: 'Solución integral para la gestión financiera de tu negocio' },
+      ],
     },
-    { 
-      icon: CreditCard, 
-      title: 'Tarjetas Clásicas y Tropicales', 
-      desc: 'Aceptación en comercios que operan con tarjetas clásicas y tropicales' 
+    en: {
+      title: "Financial Accounts in Cuba",
+      subtitle: "Manage your money securely and efficiently",
+      features: [
+        { icon: Wallet, title: 'USD, MLC, and MN accounts', desc: 'Manage local and foreign currencies in one platform' },
+        { icon: CreditCard, title: 'Classic and Tropical cards', desc: 'Acceptance in merchants operating with classic and tropical cards' },
+        { icon: Banknote, title: 'Transfers', desc: 'Send domestic and international transfers' },
+        { icon: ShieldCheck, title: 'Security', desc: 'Advanced protection for your transactions' },
+        { icon: BarChart, title: 'Analytics', desc: 'Detailed tracking of your finances' },
+        { icon: Building2, title: 'Businesses', desc: 'Integrated solution for your business financial management' },
+      ],
     },
-    { 
-      icon: Banknote, 
-      title: 'Transferencias', 
-      desc: 'Realiza envíos nacionales e internacionales' 
+    "zh-Hans": {
+      title: "古巴金融账户",
+      subtitle: "安全高效地管理资金",
+      features: [
+        { icon: Wallet, title: 'USD、MLC 与 MN 账户', desc: '在一个平台管理本币与外币' },
+        { icon: CreditCard, title: '经典卡与热带卡', desc: '支持使用经典卡与热带卡的商户场景' },
+        { icon: Banknote, title: '转账', desc: '支持国内与国际转账' },
+        { icon: ShieldCheck, title: '安全', desc: '为交易提供高级保护' },
+        { icon: BarChart, title: '统计分析', desc: '详细跟踪财务表现' },
+        { icon: Building2, title: '企业', desc: '企业财务管理的一体化方案' },
+      ],
     },
-    { 
-      icon: ShieldCheck, 
-      title: 'Seguridad', 
-      desc: 'Protección avanzada para tus transacciones' 
-    },
-    { 
-      icon: BarChart, 
-      title: 'Estadísticas', 
-      desc: 'Seguimiento detallado de tus finanzas' 
-    },
-    { 
-      icon: Building2, 
-      title: 'Empresas', 
-      desc: 'Solución integral para la gestión financiera de tu negocio' 
-    }
-  ];
+  };
+
+  const copy = copyByLanguage[language] || copyByLanguage.en;
 
   return (
     <div className="pt-32 pb-20 min-h-screen bg-gradient-to-br from-gray-50 to-white">
@@ -60,7 +68,7 @@ export default function FinancialAccounts() {
 
           <div className="relative flex items-center justify-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-blue-900 mb-0 text-center">
-              Cuentas Financieras en Cuba
+              {copy.title}
             </h1>
             <Link
               to="/?section=modular&slide=2#soluciones-modulares"
@@ -71,7 +79,7 @@ export default function FinancialAccounts() {
             </Link>
           </div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-6">
-            Gestiona tu dinero de forma segura y eficiente
+            {copy.subtitle}
           </p>
           <p className="text-lg text-gray-700 max-w-3xl mx-auto mt-6 leading-relaxed">
             {t('pages.financialAccounts.content')}
@@ -85,7 +93,7 @@ export default function FinancialAccounts() {
           className="bg-white rounded-2xl shadow-xl p-8 md:p-12 mb-12"
         >
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, i) => (
+            {copy.features.map((feature, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}

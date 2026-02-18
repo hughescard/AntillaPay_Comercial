@@ -30,7 +30,50 @@ const TILES = [
 ];
 
 export default function ConnectShowcase() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const copyByLanguage = {
+    es: {
+      transfers: 'Transferencias',
+      today: 'HOY',
+      yesterday: 'AYER',
+      accounts: {
+        main: 'Cuenta principal',
+        operative: 'Cuenta operativa',
+        taxes: 'Cuenta impuestos',
+        reserve: 'Cuenta reserva',
+        secondary: 'Cuenta secundaria',
+      },
+      status: {
+        inProgress: 'En proceso',
+        scheduled: 'Programada',
+        completed: 'Completada',
+      },
+      availableBalance: 'Saldo disponible',
+      transfer: 'Transferencia',
+      destinationBank: 'Banco destino',
+    },
+    en: {
+      transfers: 'Transfers',
+      today: 'TODAY',
+      yesterday: 'YESTERDAY',
+      accounts: {
+        main: 'Main account',
+        operative: 'Operating account',
+        taxes: 'Tax account',
+        reserve: 'Reserve account',
+        secondary: 'Secondary account',
+      },
+      status: {
+        inProgress: 'In progress',
+        scheduled: 'Scheduled',
+        completed: 'Completed',
+      },
+      availableBalance: 'Available balance',
+      transfer: 'Transfer',
+      destinationBank: 'Destination bank',
+    },
+  };
+  const copy = copyByLanguage[language] || copyByLanguage.en;
   const [hoveredTile, setHoveredTile] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [highlightedConnections, setHighlightedConnections] = useState([]);
@@ -240,7 +283,7 @@ export default function ConnectShowcase() {
                     className="absolute inset-0 space-y-2"
                   >
                     <div className="flex items-center justify-between pb-3 border-b border-gray-200">
-                      <h3 className="text-xl font-bold text-gray-900">Transferencias</h3>
+                      <h3 className="text-xl font-bold text-gray-900">{copy.transfers}</h3>
                       <div className="flex gap-1">
                         <div className="w-1 h-1 rounded-lg bg-indigo-600" />
                         <div className="w-1 h-1 rounded-lg bg-indigo-600" />
@@ -248,10 +291,10 @@ export default function ConnectShowcase() {
                       </div>
                     </div>
 
-                    <div className="text-xs text-gray-500 font-medium mt-3 mb-2">HOY</div>
+                    <div className="text-xs text-gray-500 font-medium mt-3 mb-2">{copy.today}</div>
 
                     {[
-                      { id: 'TR-9125', name: 'Cuenta principal', amount: 'US$150.00', status: 'En proceso', color: 'green' },
+                      { id: 'TR-9125', name: copy.accounts.main, amount: 'US$150.00', status: 'inProgress', color: 'green' },
                     ].map((order, i) => (
                       <div key={i} className="flex items-center justify-between py-3 bg-white border border-gray-200 rounded-lg px-3 shadow-sm">
                         <div className="flex-1">
@@ -260,11 +303,11 @@ export default function ConnectShowcase() {
                             <span className="text-sm text-gray-600">{order.name}</span>
                           </div>
                           <span className={`inline-block px-3 py-1 rounded-md text-xs font-medium ${
-                            order.status === 'Completada' ? 'bg-gray-100 text-gray-700' :
-                            order.status === 'En proceso' ? 'bg-green-100 text-green-700' :
+                            order.status === 'completed' ? 'bg-gray-100 text-gray-700' :
+                            order.status === 'inProgress' ? 'bg-green-100 text-green-700' :
                             'bg-purple-100 text-purple-700'
                           }`}>
-                            {order.status}
+                            {copy.status[order.status]}
                           </span>
                         </div>
                         <div className="flex items-center gap-1">
@@ -276,13 +319,13 @@ export default function ConnectShowcase() {
                       </div>
                     ))}
 
-                    <div className="text-xs text-gray-500 font-medium mt-4 mb-2">AYER</div>
+                    <div className="text-xs text-gray-500 font-medium mt-4 mb-2">{copy.yesterday}</div>
 
                     {[
-                      { id: 'TR-9124', name: 'Cuenta operativa', amount: 'US$200.00', status: 'En proceso', color: 'green' },
-                      { id: 'TR-9123', name: 'Cuenta impuestos', amount: 'US$178.00', status: 'Programada', color: 'purple' },
-                      { id: 'TR-9122', name: 'Cuenta reserva', amount: 'US$200.00', status: 'Completada', color: 'gray' },
-                      { id: 'TR-9121', name: 'Cuenta secundaria', amount: 'US$200.00', status: 'Completada', color: 'gray' },
+                      { id: 'TR-9124', name: copy.accounts.operative, amount: 'US$200.00', status: 'inProgress', color: 'green' },
+                      { id: 'TR-9123', name: copy.accounts.taxes, amount: 'US$178.00', status: 'scheduled', color: 'purple' },
+                      { id: 'TR-9122', name: copy.accounts.reserve, amount: 'US$200.00', status: 'completed', color: 'gray' },
+                      { id: 'TR-9121', name: copy.accounts.secondary, amount: 'US$200.00', status: 'completed', color: 'gray' },
                     ].map((order, i) => (
                       <div key={i} className="flex items-center justify-between py-2.5">
                         <div className="flex-1">
@@ -291,11 +334,11 @@ export default function ConnectShowcase() {
                             <span className="text-sm text-gray-600">{order.name}</span>
                           </div>
                           <span className={`inline-block px-2.5 py-0.5 rounded-md text-xs font-medium ${
-                            order.status === 'Completada' ? 'bg-gray-100 text-gray-700' :
-                            order.status === 'En proceso' ? 'bg-green-100 text-green-700' :
+                            order.status === 'completed' ? 'bg-gray-100 text-gray-700' :
+                            order.status === 'inProgress' ? 'bg-green-100 text-green-700' :
                             'bg-purple-100 text-purple-700'
                           }`}>
-                            {order.status}
+                            {copy.status[order.status]}
                           </span>
                         </div>
                         <div className="flex items-center gap-1">
@@ -323,10 +366,10 @@ export default function ConnectShowcase() {
                         <div>
                           <div className="flex items-center gap-1.5 mb-1">
                             <span className="text-sm font-bold text-gray-900">TR-9124</span>
-                            <span className="text-xs text-gray-700">Cuenta operativa</span>
+                            <span className="text-xs text-gray-700">{copy.accounts.operative}</span>
                           </div>
                           <span className="inline-block px-2 py-0.5 rounded-md text-[10px] font-medium bg-purple-100 text-purple-700">
-                            Completada
+                            {copy.status.completed}
                           </span>
                         </div>
                         <div className="text-base font-bold text-gray-900">US$200.00</div>
@@ -344,7 +387,7 @@ export default function ConnectShowcase() {
 
                     {/* Saldo disponible */}
                     <div className="bg-blue-600 text-white px-8 py-2 rounded-lg shadow-lg font-bold text-sm">
-                      Saldo disponible
+                      {copy.availableBalance}
                     </div>
 
                     {/* Arrow Down */}
@@ -358,7 +401,7 @@ export default function ConnectShowcase() {
 
                     {/* Transferencia */}
                     <div className="bg-cyan-400 text-white px-8 py-2 rounded-lg shadow-lg font-bold text-sm border-2 border-dashed border-cyan-300">
-                      Transferencia
+                      {copy.transfer}
                     </div>
 
                     {/* Arrow Down */}
@@ -373,7 +416,7 @@ export default function ConnectShowcase() {
                     {/* Banco destino */}
                     <div className="bg-cyan-400 text-white px-4 py-2 rounded-lg shadow-lg font-bold text-xs border-2 border-dashed border-cyan-300 flex items-center gap-1.5">
                       <Check className="w-4 h-4" />
-                      <span>Banco destino</span>
+                      <span>{copy.destinationBank}</span>
                     </div>
                   </motion.div>
 
@@ -392,10 +435,10 @@ export default function ConnectShowcase() {
                         <div>
                           <div className="flex items-center gap-1.5 mb-1">
                             <span className="text-sm font-bold text-gray-900">TR-9125</span>
-                            <span className="text-xs text-gray-700">Cuenta principal</span>
+                            <span className="text-xs text-gray-700">{copy.accounts.main}</span>
                           </div>
                           <span className="inline-block px-2 py-0.5 rounded-md text-[10px] font-medium bg-green-100 text-green-700">
-                            En proceso
+                            {copy.status.inProgress}
                           </span>
                         </div>
                         <div className="text-base font-bold text-gray-900">US$150.00</div>
@@ -413,7 +456,7 @@ export default function ConnectShowcase() {
 
                     {/* Saldo disponible */}
                     <div className="bg-blue-600 text-white px-8 py-2 rounded-lg shadow-lg font-bold text-sm">
-                      Saldo disponible
+                      {copy.availableBalance}
                     </div>
 
                     {/* Arrow Down */}
@@ -427,7 +470,7 @@ export default function ConnectShowcase() {
 
                     {/* Transferencia */}
                     <div className="bg-cyan-400 text-white px-8 py-2 rounded-lg shadow-lg font-bold text-sm border-2 border-dashed border-cyan-300">
-                      Transferencia
+                      {copy.transfer}
                     </div>
 
                     {/* Arrow Down */}
@@ -441,7 +484,7 @@ export default function ConnectShowcase() {
 
                     {/* Banco destino */}
                     <div className="bg-cyan-400 text-white px-4 py-2 rounded-lg shadow-lg font-bold text-xs border-2 border-dashed border-cyan-300">
-                      Banco destino
+                      {copy.destinationBank}
                     </div>
                   </motion.div>
                 </div>
@@ -519,32 +562,32 @@ export default function ConnectShowcase() {
                   className="absolute inset-0 space-y-2 p-1"
                 >
                   <div className="flex items-center justify-between pb-3 border-b border-gray-200">
-                    <h3 className="text-xl font-bold text-gray-900">Transferencias</h3>
+                    <h3 className="text-xl font-bold text-gray-900">{copy.transfers}</h3>
                     <div className="flex gap-1">
                       <div className="w-1 h-1 rounded-lg bg-indigo-600" />
                       <div className="w-1 h-1 rounded-lg bg-indigo-600" />
                       <div className="w-1 h-1 rounded-lg bg-indigo-600" />
                     </div>
                   </div>
-                  <div className="text-xs text-gray-500 font-medium mt-3 mb-2">HOY</div>
+                  <div className="text-xs text-gray-500 font-medium mt-3 mb-2">{copy.today}</div>
                   <div className="flex items-center justify-between py-3 bg-white border border-gray-200 rounded-lg px-3 shadow-sm">
                     <div>
                       <div className="flex items-center gap-2 mb-2">
                         <span className="text-sm font-semibold text-gray-900">TR-9125</span>
-                        <span className="text-sm text-gray-600">Cuenta principal</span>
+                        <span className="text-sm text-gray-600">{copy.accounts.main}</span>
                       </div>
-                      <span className="inline-block px-3 py-1 rounded-md text-xs font-medium bg-green-100 text-green-700">En proceso</span>
+                      <span className="inline-block px-3 py-1 rounded-md text-xs font-medium bg-green-100 text-green-700">{copy.status.inProgress}</span>
                     </div>
                     <div className="text-base font-bold text-gray-900">US$150.00</div>
                   </div>
-                  <div className="text-xs text-gray-500 font-medium mt-4 mb-2">AYER</div>
+                  <div className="text-xs text-gray-500 font-medium mt-4 mb-2">{copy.yesterday}</div>
                   <div className="flex items-center justify-between py-2">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-sm font-semibold text-gray-900">TR-9124</span>
-                        <span className="text-sm text-gray-600">Cuenta operativa</span>
+                        <span className="text-sm text-gray-600">{copy.accounts.operative}</span>
                       </div>
-                      <span className="inline-block px-2.5 py-0.5 rounded-md text-xs font-medium bg-green-100 text-green-700">En proceso</span>
+                      <span className="inline-block px-2.5 py-0.5 rounded-md text-xs font-medium bg-green-100 text-green-700">{copy.status.inProgress}</span>
                     </div>
                     <div className="text-sm font-semibold text-gray-900">US$200.00</div>
                   </div>
@@ -552,9 +595,9 @@ export default function ConnectShowcase() {
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-sm font-semibold text-gray-900">TR-9123</span>
-                        <span className="text-sm text-gray-600">Cuenta impuestos</span>
+                        <span className="text-sm text-gray-600">{copy.accounts.taxes}</span>
                       </div>
-                      <span className="inline-block px-2.5 py-0.5 rounded-md text-xs font-medium bg-purple-100 text-purple-700">Programada</span>
+                      <span className="inline-block px-2.5 py-0.5 rounded-md text-xs font-medium bg-purple-100 text-purple-700">{copy.status.scheduled}</span>
                     </div>
                     <div className="text-sm font-semibold text-gray-900">US$178.00</div>
                   </div>
@@ -569,11 +612,11 @@ export default function ConnectShowcase() {
                   transition={{ duration: 0.55, ease: 'easeInOut' }}
                   className="absolute inset-0 flex flex-col items-center justify-center space-y-3 px-4"
                 >
-                  <div className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-lg font-bold text-sm">Saldo disponible</div>
+                  <div className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-lg font-bold text-sm">{copy.availableBalance}</div>
                   <svg className="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12l-5-5h10l-5 5z" /></svg>
-                  <div className="bg-cyan-400 text-white px-6 py-2 rounded-lg shadow-lg font-bold text-sm border-2 border-dashed border-cyan-300">Transferencia</div>
+                  <div className="bg-cyan-400 text-white px-6 py-2 rounded-lg shadow-lg font-bold text-sm border-2 border-dashed border-cyan-300">{copy.transfer}</div>
                   <svg className="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12l-5-5h10l-5 5z" /></svg>
-                  <div className="bg-cyan-400 text-white px-4 py-2 rounded-lg shadow-lg font-bold text-xs border-2 border-dashed border-cyan-300 flex items-center gap-1.5"><Check className="w-4 h-4" /><span>Banco destino</span></div>
+                  <div className="bg-cyan-400 text-white px-4 py-2 rounded-lg shadow-lg font-bold text-xs border-2 border-dashed border-cyan-300 flex items-center gap-1.5"><Check className="w-4 h-4" /><span>{copy.destinationBank}</span></div>
                 </motion.div>
 
                 {/* Slide 3 - Flow Diagram (variant) */}
@@ -590,19 +633,19 @@ export default function ConnectShowcase() {
                       <div>
                         <div className="flex items-center gap-1.5 mb-1">
                           <span className="text-sm font-bold text-gray-900">TR-9125</span>
-                          <span className="text-xs text-gray-700">Cuenta principal</span>
+                          <span className="text-xs text-gray-700">{copy.accounts.main}</span>
                         </div>
-                        <span className="inline-block px-2 py-0.5 rounded-md text-[10px] font-medium bg-green-100 text-green-700">En proceso</span>
+                        <span className="inline-block px-2 py-0.5 rounded-md text-[10px] font-medium bg-green-100 text-green-700">{copy.status.inProgress}</span>
                       </div>
                       <div className="text-base font-bold text-gray-900">US$150.00</div>
                     </div>
                   </div>
                   <svg className="w-3 h-3 text-cyan-400" fill="currentColor" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" /></svg>
-                  <div className="bg-blue-600 text-white px-8 py-2 rounded-lg shadow-lg font-bold text-sm">Saldo disponible</div>
+                  <div className="bg-blue-600 text-white px-8 py-2 rounded-lg shadow-lg font-bold text-sm">{copy.availableBalance}</div>
                   <svg className="w-3 h-3 text-cyan-400" fill="currentColor" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" /></svg>
-                  <div className="bg-cyan-400 text-white px-8 py-2 rounded-lg shadow-lg font-bold text-sm border-2 border-dashed border-cyan-300">Transferencia</div>
+                  <div className="bg-cyan-400 text-white px-8 py-2 rounded-lg shadow-lg font-bold text-sm border-2 border-dashed border-cyan-300">{copy.transfer}</div>
                   <svg className="w-3 h-3 text-cyan-400" fill="currentColor" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" /></svg>
-                  <div className="bg-cyan-400 text-white px-4 py-2 rounded-lg shadow-lg font-bold text-xs border-2 border-dashed border-cyan-300">Banco destino</div>
+                  <div className="bg-cyan-400 text-white px-4 py-2 rounded-lg shadow-lg font-bold text-xs border-2 border-dashed border-cyan-300">{copy.destinationBank}</div>
                 </motion.div>
               </div>
             </motion.div>

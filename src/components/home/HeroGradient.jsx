@@ -6,7 +6,26 @@ import antillaLogo from '@/assets/cards/logo.png';
 import { useLanguage } from '@/components/i18n/LanguageContext';
 
 export default function HeroGradient({ onLoginClick }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const copyByLanguage = {
+    es: {
+      bankAccount: 'Cuenta Bancaria',
+      antillaBalance: 'Saldo Antilla',
+      loginCardTitle: 'Iniciar sesion en Antilla',
+      loginCardDesc: 'Ingresa tus credenciales para continuar.',
+      username: 'Usuario',
+      next: 'Siguiente',
+    },
+    en: {
+      bankAccount: 'Bank Account',
+      antillaBalance: 'Antilla Balance',
+      loginCardTitle: 'Sign in to Antilla',
+      loginCardDesc: 'Enter your credentials to continue.',
+      username: 'Username',
+      next: 'Continue',
+    },
+  };
+  const copy = copyByLanguage[language] || copyByLanguage.en;
   const [email, setEmail] = useState('');
 
   const handleSubmit = (e) => {
@@ -95,26 +114,26 @@ export default function HeroGradient({ onLoginClick }) {
                 </div>
                 <div className="flex-1 flex items-center gap-2 bg-gray-50 rounded-md px-2 py-1.5">
                   <Search className="w-3 h-3 text-gray-400" />
-                  <span className="text-[10px] text-gray-400">Búsqueda</span>
+                  <span className="text-[10px] text-gray-400">{t('common.search').trim()}</span>
                 </div>
               </div>
 
               {/* Panel Content */}
               <div className="p-4">
-                <h3 className="text-lg font-bold text-slate-800 mb-3">Hoy</h3>
+                <h3 className="text-lg font-bold text-slate-800 mb-3">{t('dashboard.today')}</h3>
                 
                 {/* Volume Section */}
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[10px] text-gray-500">Volumen neto</span>
+                      <span className="text-[10px] text-gray-500">{t('dashboard.netVolume')}</span>
                       <ChevronDown className="w-2.5 h-2.5 text-gray-400" />
                     </div>
                     <div className="text-xl font-bold text-slate-800">USD3,528,198.72</div>
                     <div className="text-[10px] text-gray-400">2:00 p.m.</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-[10px] text-gray-500 mb-1">Ayer</div>
+                    <div className="text-[10px] text-gray-500 mb-1">{t('dashboard.yesterday')}</div>
                     <div className="text-sm text-gray-600">USD2,931,556.34</div>
                   </div>
                 </div>
@@ -131,14 +150,14 @@ export default function HeroGradient({ onLoginClick }) {
                 </div>
                 <div className="flex justify-between text-[9px] text-gray-400 mb-4">
                   <span>12:00 a.m.</span>
-                  <span className="text-violet-600 font-medium">Ahora, 2:00 p.m.</span>
+                  <span className="text-violet-600 font-medium">{t('common.now')}, 2:00 p.m.</span>
                 </div>
 
                 {/* Stats Row */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-gray-50 rounded-lg p-2.5">
                     <div className="flex items-center gap-1.5 mb-1">
-                      <span className="text-[10px] text-gray-600">Volumen neto de ventas</span>
+                      <span className="text-[10px] text-gray-600">{t('dashboard.netSales')}</span>
                       <span className="text-[9px] text-emerald-500 font-medium">+32.8%</span>
                     </div>
                     <div className="text-sm font-bold text-slate-800">USD39,274.29</div>
@@ -150,7 +169,7 @@ export default function HeroGradient({ onLoginClick }) {
                   </div>
                   <div className="bg-gray-50 rounded-lg p-2.5">
                     <div className="flex items-center gap-1.5 mb-1">
-                      <span className="text-[10px] text-gray-600">Clientes nuevos</span>
+                      <span className="text-[10px] text-gray-600">{t('dashboard.newCustomers')}</span>
                       <span className="text-[9px] text-emerald-500 font-medium">+32.1%</span>
                     </div>
                     <div className="flex items-baseline gap-1.5">
@@ -179,17 +198,17 @@ export default function HeroGradient({ onLoginClick }) {
                   className="w-24 h-24 mx-auto mb-4 object-contain"
                 />
 
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Método de pago</label>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">{t('pages.paymentMethods.title')}</label>
                 <div className="rounded-xl border border-slate-200 bg-white overflow-hidden mb-4">
                   <button className="w-full px-4 py-2.5 flex items-center gap-2 text-sm text-slate-700 border-b border-slate-100">
                     <span className="w-4 h-4 rounded-full border border-slate-300" />
-                    <span>Cuenta Bancaria</span>
+                    <span>{copy.bankAccount}</span>
                   </button>
                   <button className="w-full px-4 py-2.5 flex items-center gap-2 text-sm text-slate-700 bg-slate-50">
                     <span className="w-4 h-4 rounded-full border-2 border-[#5b5df0] flex items-center justify-center">
                       <span className="w-2 h-2 rounded-full bg-[#5b5df0]" />
                     </span>
-                    <span>Saldo Antilla</span>
+                    <span>{copy.antillaBalance}</span>
                   </button>
                 </div>
 
@@ -197,14 +216,14 @@ export default function HeroGradient({ onLoginClick }) {
                   <div className="flex items-start gap-2.5 mb-3">
                     <div className="w-8 h-8 rounded-lg bg-[#5b5df0] text-white flex items-center justify-center text-xs font-bold">A</div>
                     <div>
-                      <p className="text-sm font-semibold text-slate-800">Iniciar sesión en Antilla</p>
-                      <p className="text-[11px] text-slate-500">Ingresa tus credenciales para continuar.</p>
+                      <p className="text-sm font-semibold text-slate-800">{copy.loginCardTitle}</p>
+                      <p className="text-[11px] text-slate-500">{copy.loginCardDesc}</p>
                     </div>
                   </div>
 
                   <div className="space-y-2.5">
                     <div>
-                      <p className="text-[11px] text-slate-600 mb-1">Usuario</p>
+                      <p className="text-[11px] text-slate-600 mb-1">{copy.username}</p>
                       <input
                         value="correo@ejemplo.com"
                         readOnly
@@ -212,7 +231,7 @@ export default function HeroGradient({ onLoginClick }) {
                       />
                     </div>
                     <div>
-                      <p className="text-[11px] text-slate-600 mb-1">Contraseña</p>
+                      <p className="text-[11px] text-slate-600 mb-1">{t('login.password')}</p>
                       <input
                         value="••••••••"
                         readOnly
@@ -222,7 +241,7 @@ export default function HeroGradient({ onLoginClick }) {
                   </div>
 
                   <button className="mt-3 w-full bg-[#5b5df0] text-white py-2.5 rounded-lg font-semibold text-sm">
-                    Siguiente
+                    {copy.next}
                   </button>
                 </div>
               </div>

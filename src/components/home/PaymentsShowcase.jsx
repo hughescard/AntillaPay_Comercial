@@ -30,7 +30,40 @@ const TILES = [
 ];
 
 export default function PaymentsShowcase() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const copyByLanguage = {
+    es: {
+      product: 'Producto 001',
+      payNow: 'Pagar ahora',
+      payWithLink: 'Pagar con',
+      link: 'enlace',
+      orPayOther: 'O paga de otra forma',
+      email: 'Correo',
+      cardInfo: 'Informacion de tarjeta',
+      country: 'Pais',
+      payMethod: 'Metodo de pago',
+      card: 'Tarjeta',
+      transfer: 'Transferencia',
+      destinationBank: 'Banco destino',
+      pay: 'Pagar',
+    },
+    en: {
+      product: 'Product 001',
+      payNow: 'Pay now',
+      payWithLink: 'Pay with',
+      link: 'link',
+      orPayOther: 'Or pay another way',
+      email: 'Email',
+      cardInfo: 'Card information',
+      country: 'Country',
+      payMethod: 'Payment method',
+      card: 'Card',
+      transfer: 'Transfer',
+      destinationBank: 'Destination bank',
+      pay: 'Pay',
+    },
+  };
+  const copy = copyByLanguage[language] || copyByLanguage.en;
   const [hoveredTile, setHoveredTile] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [highlightedConnections, setHighlightedConnections] = useState([]);
@@ -234,27 +267,27 @@ export default function PaymentsShowcase() {
                         </svg>
                       </div>
                       <div className="text-center">
-                        <div className="font-semibold text-gray-900 text-[10px]">Producto 001</div>
+                        <div className="font-semibold text-gray-900 text-[10px]">{copy.product}</div>
                         <div className="text-base font-bold text-gray-900">US$149.00</div>
                       </div>
                     </div>
 
                     <button className="w-full bg-black text-white py-2 rounded-lg text-xs font-medium flex items-center justify-center gap-1">
-                      Pagar ahora
+                      {copy.payNow}
                     </button>
 
                     <button className="w-full bg-green-500 text-white py-2 rounded-lg text-xs font-medium">
-                      Pagar con <span className="font-bold">enlace</span>
+                      {copy.payWithLink} <span className="font-bold">{copy.link}</span>
                     </button>
 
                     <div className="flex items-center gap-1.5 py-0.5">
                       <div className="flex-1 h-px bg-gray-300" />
-                      <span className="text-[8px] text-gray-500">O paga de otra forma</span>
+                      <span className="text-[8px] text-gray-500">{copy.orPayOther}</span>
                       <div className="flex-1 h-px bg-gray-300" />
                     </div>
 
                     <div>
-                      <label className="block text-[8px] font-medium text-gray-700 mb-0.5">Correo</label>
+                      <label className="block text-[8px] font-medium text-gray-700 mb-0.5">{copy.email}</label>
                       <input
                         type="text"
                         value="jane.diaz@example.com"
@@ -264,7 +297,7 @@ export default function PaymentsShowcase() {
                     </div>
 
                     <div>
-                      <label className="block text-[8px] font-medium text-gray-700 mb-0.5">Información de tarjeta</label>
+                      <label className="block text-[8px] font-medium text-gray-700 mb-0.5">{copy.cardInfo}</label>
                       <div className="space-y-0 border border-gray-300 rounded-md overflow-hidden bg-white">
                         <div className="flex items-center gap-1.5 px-2 py-1.5 border-b border-gray-300">
                           <input
@@ -293,7 +326,7 @@ export default function PaymentsShowcase() {
                     </div>
 
                     <div>
-                      <label className="block text-[8px] font-medium text-gray-700 mb-0.5">País</label>
+                      <label className="block text-[8px] font-medium text-gray-700 mb-0.5">{copy.country}</label>
                       <input
                         type="text"
                         value="Cuba"
@@ -303,7 +336,7 @@ export default function PaymentsShowcase() {
                     </div>
 
                     <button className="w-full bg-slate-900 text-white py-2 rounded-lg text-xs font-medium">
-                      Pagar US$149.00
+                      {copy.pay} US$149.00
                     </button>
                   </motion.div>
 
@@ -324,27 +357,27 @@ export default function PaymentsShowcase() {
                         </svg>
                       </div>
                       <div className="text-center">
-                        <div className="font-semibold text-gray-900 text-[10px]">Producto 001</div>
+                        <div className="font-semibold text-gray-900 text-[10px]">{copy.product}</div>
                         <div className="text-base font-bold text-gray-900">US$135.00</div>
                       </div>
                     </div>
 
                     <button className="w-full bg-black text-white py-2 rounded-lg text-xs font-medium flex items-center justify-center gap-1">
-                      Pagar ahora
+                      {copy.payNow}
                     </button>
 
                     <button className="w-full bg-green-500 text-white py-2 rounded-lg text-xs font-medium">
-                      Pagar con <span className="font-bold">enlace</span>
+                      {copy.payWithLink} <span className="font-bold">{copy.link}</span>
                     </button>
 
                     <div className="flex items-center gap-1.5 py-0.5">
                       <div className="flex-1 h-px bg-gray-300" />
-                      <span className="text-[8px] text-gray-500">O paga de otra forma</span>
+                      <span className="text-[8px] text-gray-500">{copy.orPayOther}</span>
                       <div className="flex-1 h-px bg-gray-300" />
                     </div>
 
                     <div>
-                      <label className="block text-[8px] font-medium text-gray-700 mb-0.5">Correo</label>
+                      <label className="block text-[8px] font-medium text-gray-700 mb-0.5">{copy.email}</label>
                       <input
                         type="text"
                         value="maria@example.nl"
@@ -354,36 +387,36 @@ export default function PaymentsShowcase() {
                     </div>
 
                     <div>
-                      <label className="block text-[8px] font-medium text-gray-700 mb-0.5">Método de pago</label>
+                      <label className="block text-[8px] font-medium text-gray-700 mb-0.5">{copy.payMethod}</label>
                       <div className="flex gap-1">
                         <div className="flex-1 border border-gray-300 rounded-md p-1.5 bg-white flex flex-col items-center gap-0.5">
                           <CreditCard className="w-3 h-3 text-gray-500" />
-                          <span className="text-[7px] text-gray-600">Tarjeta</span>
+                          <span className="text-[7px] text-gray-600">{copy.card}</span>
                         </div>
                         <div className="flex-1 border-2 border-indigo-600 rounded-md p-1.5 bg-indigo-50 flex flex-col items-center gap-0.5">
                           <div className="w-3 h-3 rounded bg-gradient-to-br from-pink-500 to-purple-600" />
-                          <span className="text-[7px] font-semibold text-gray-900">Transferencia</span>
+                          <span className="text-[7px] font-semibold text-gray-900">{copy.transfer}</span>
                         </div>
                         <div className="flex-1 border border-gray-300 rounded-md p-1.5 bg-white flex flex-col items-center gap-0.5">
                           <div className="w-3 h-3 rounded bg-blue-600 flex items-center justify-center text-white text-[6px] font-bold">S</div>
-                          <span className="text-[7px] text-gray-600">Enlace</span>
+                          <span className="text-[7px] text-gray-600">{copy.link}</span>
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-[8px] font-medium text-gray-700 mb-0.5">Banco destino</label>
+                      <label className="block text-[8px] font-medium text-gray-700 mb-0.5">{copy.destinationBank}</label>
                       <div className="w-full px-2 py-1.5 border border-gray-300 rounded-md bg-white text-[10px] flex items-center justify-between">
                         <div className="flex items-center gap-1.5">
                           <div className="w-3 h-3 bg-orange-500 rounded" />
-                          <span>Banco destino</span>
+                          <span>{copy.destinationBank}</span>
                         </div>
                         <span className="text-gray-400 text-[8px]">▼</span>
                       </div>
                     </div>
 
                     <button className="w-full bg-slate-900 text-white py-2 rounded-lg text-xs font-medium">
-                      Pagar US$135.00
+                      {copy.pay} US$135.00
                     </button>
                   </motion.div>
                 </div>
@@ -470,27 +503,27 @@ export default function PaymentsShowcase() {
                       </svg>
                     </div>
                     <div className="text-center">
-                      <div className="font-semibold text-gray-900 text-[10px]">Producto 001</div>
+                      <div className="font-semibold text-gray-900 text-[10px]">{copy.product}</div>
                       <div className="text-base font-bold text-gray-900">US$149.00</div>
                     </div>
                   </div>
                   <button className="w-full bg-black text-white py-2 rounded-lg text-xs font-medium flex items-center justify-center gap-1">
-                    Pagar ahora
+                    {copy.payNow}
                   </button>
                   <button className="w-full bg-green-500 text-white py-2 rounded-lg text-xs font-medium">
-                    Pagar con <span className="font-bold">enlace</span>
+                    {copy.payWithLink} <span className="font-bold">{copy.link}</span>
                   </button>
                   <div className="flex items-center gap-1.5 py-0.5">
                     <div className="flex-1 h-px bg-gray-300" />
-                    <span className="text-[8px] text-gray-500">O paga de otra forma</span>
+                    <span className="text-[8px] text-gray-500">{copy.orPayOther}</span>
                     <div className="flex-1 h-px bg-gray-300" />
                   </div>
                   <div>
-                    <label className="block text-[8px] font-medium text-gray-700 mb-0.5">Correo</label>
+                    <label className="block text-[8px] font-medium text-gray-700 mb-0.5">{copy.email}</label>
                     <input type="text" value="jane.diaz@example.com" readOnly className="w-full px-2 py-1.5 border border-gray-300 rounded-md bg-white text-[10px]" />
                   </div>
                   <div>
-                    <label className="block text-[8px] font-medium text-gray-700 mb-0.5">Información de tarjeta</label>
+                    <label className="block text-[8px] font-medium text-gray-700 mb-0.5">{copy.cardInfo}</label>
                     <div className="space-y-0 border border-gray-300 rounded-md overflow-hidden bg-white">
                       <div className="flex items-center gap-1.5 px-2 py-1.5 border-b border-gray-300">
                         <input type="text" value="4242 4242 4242" readOnly className="flex-1 text-[10px] border-none outline-none" />
@@ -503,7 +536,7 @@ export default function PaymentsShowcase() {
                     </div>
                   </div>
                   <button className="w-full bg-slate-900 text-white py-2 rounded-lg text-xs font-medium">
-                    Pagar US$149.00
+                    {copy.pay} US$149.00
                   </button>
                 </motion.div>
 
@@ -524,54 +557,54 @@ export default function PaymentsShowcase() {
                       </svg>
                     </div>
                     <div className="text-center">
-                      <div className="font-semibold text-gray-900 text-[10px]">Producto 001</div>
+                      <div className="font-semibold text-gray-900 text-[10px]">{copy.product}</div>
                       <div className="text-base font-bold text-gray-900">US$135.00</div>
                     </div>
                   </div>
                   <button className="w-full bg-black text-white py-2 rounded-lg text-xs font-medium flex items-center justify-center gap-1">
-                    Pagar ahora
+                    {copy.payNow}
                   </button>
                   <button className="w-full bg-green-500 text-white py-2 rounded-lg text-xs font-medium">
-                    Pagar con <span className="font-bold">enlace</span>
+                    {copy.payWithLink} <span className="font-bold">{copy.link}</span>
                   </button>
                   <div className="flex items-center gap-1.5 py-0.5">
                     <div className="flex-1 h-px bg-gray-300" />
-                    <span className="text-[8px] text-gray-500">O paga de otra forma</span>
+                    <span className="text-[8px] text-gray-500">{copy.orPayOther}</span>
                     <div className="flex-1 h-px bg-gray-300" />
                   </div>
                   <div>
-                    <label className="block text-[8px] font-medium text-gray-700 mb-0.5">Correo</label>
+                    <label className="block text-[8px] font-medium text-gray-700 mb-0.5">{copy.email}</label>
                     <input type="text" value="maria@example.nl" readOnly className="w-full px-2 py-1.5 border border-gray-300 rounded-md bg-white text-[10px]" />
                   </div>
                   <div>
-                    <label className="block text-[8px] font-medium text-gray-700 mb-0.5">Método de pago</label>
+                    <label className="block text-[8px] font-medium text-gray-700 mb-0.5">{copy.payMethod}</label>
                     <div className="flex gap-1">
                       <div className="flex-1 border border-gray-300 rounded-md p-1.5 bg-white flex flex-col items-center gap-0.5">
                         <CreditCard className="w-3 h-3 text-gray-500" />
-                        <span className="text-[7px] text-gray-600">Tarjeta</span>
+                        <span className="text-[7px] text-gray-600">{copy.card}</span>
                       </div>
                       <div className="flex-1 border-2 border-indigo-600 rounded-md p-1.5 bg-indigo-50 flex flex-col items-center gap-0.5">
                         <div className="w-3 h-3 rounded bg-gradient-to-br from-pink-500 to-purple-600" />
-                        <span className="text-[7px] font-semibold text-gray-900">Transferencia</span>
+                        <span className="text-[7px] font-semibold text-gray-900">{copy.transfer}</span>
                       </div>
                       <div className="flex-1 border border-gray-300 rounded-md p-1.5 bg-white flex flex-col items-center gap-0.5">
                         <div className="w-3 h-3 rounded bg-blue-600 flex items-center justify-center text-white text-[6px] font-bold">S</div>
-                        <span className="text-[7px] text-gray-600">Enlace</span>
+                        <span className="text-[7px] text-gray-600">{copy.link}</span>
                       </div>
                     </div>
                   </div>
                   <div>
-                    <label className="block text-[8px] font-medium text-gray-700 mb-0.5">Banco destino</label>
+                    <label className="block text-[8px] font-medium text-gray-700 mb-0.5">{copy.destinationBank}</label>
                     <div className="w-full px-2 py-1.5 border border-gray-300 rounded-md bg-white text-[10px] flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
                         <div className="w-3 h-3 bg-orange-500 rounded" />
-                        <span>Banco destino</span>
+                        <span>{copy.destinationBank}</span>
                       </div>
                       <span className="text-gray-400 text-[8px]">▼</span>
                     </div>
                   </div>
                   <button className="w-full bg-slate-900 text-white py-2 rounded-lg text-xs font-medium">
-                    Pagar US$135.00
+                    {copy.pay} US$135.00
                   </button>
                 </motion.div>
               </div>

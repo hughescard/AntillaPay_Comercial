@@ -20,7 +20,7 @@ import { getTerminalPosUrl } from "@/shared/terminal/terminalPosRedirect";
 
 const terminalPosUrl = getTerminalPosUrl();
 
-export const sectorSolutions = {
+const baseSectorSolutions = {
   pymes: {
     id: "pymes",
     badge: "Solución para Pymes",
@@ -385,3 +385,260 @@ export const sectorSolutions = {
     ],
   },
 };
+
+const localizedSectorOverrides = {
+  en: {
+    pymes: {
+      badge: "Solution for SMBs",
+      title: "Turn daily sales into a structured financial operation",
+      subtitle:
+        "AntillaPay helps small businesses collect payments, control balances, and track customers from one practical dashboard.",
+      audience: "Retail, professional services, and emerging businesses.",
+      stats: [
+        { value: "48h", label: "Typical activation time" },
+        { value: "24/7", label: "Payment and status visibility" },
+        { value: "-35%", label: "Less manual operational work" },
+      ],
+      capabilities: [
+        { title: "Fast payments across channels", description: "Use payment links and digital payment flows to close sales faster without technical complexity." },
+        { title: "Balance and movement control", description: "Monitor availability, withdrawals, and reconciliation from one financial view." },
+        { title: "Customer-level tracking", description: "Review payment history and behavior to improve retention and recurrence." },
+        { title: "Document export", description: "Download operational and financial reports in formats ready for internal control." },
+      ],
+      modules: [
+        { name: "Payment Links", description: "Shareable payment collection" },
+        { name: "Operations traceability", description: "Real-time statuses" },
+        { name: "Manage your balance", description: "Liquidity and movements" },
+        { name: "Customer traceability", description: "360 commercial profile" },
+      ],
+      flow: [
+        { title: "Configure products and amounts", description: "Define what you sell and the best collection model." },
+        { title: "Activate collections and monitor status", description: "Operate with alerts and transaction-level visibility." },
+        { title: "Export and decide", description: "Use reports to manage cash flow and growth." },
+      ],
+    },
+    retail: {
+      badge: "Solution for Retail",
+      title: "Unify physical and digital commerce with real-time control",
+      subtitle:
+        "From in-store checkout to digital payments, AntillaPay centralizes high-volume retail operations.",
+      audience: "Chains, specialized stores, and multichannel retail teams.",
+      stats: [
+        { value: "+18%", label: "Potential payment conversion uplift" },
+        { value: "1 panel", label: "Control for physical and digital channels" },
+        { value: "Real time", label: "Transaction and customer status" },
+      ],
+      capabilities: [
+        { title: "Omnichannel collection", description: "Run store, social, and direct-link sales from one operation." },
+        { title: "Faster point-of-sale flows", description: "Integrate payment terminals to reduce friction at checkout." },
+        { title: "Shift-level commercial visibility", description: "Measure performance by time, channel, and customer behavior." },
+        { title: "Operational control and traces", description: "Consolidate evidence for audits and internal management." },
+      ],
+      modules: [
+        { name: "Point of Sale Terminal", description: "In-person retail payments" },
+        { name: "Payment Links", description: "Fast sales outside the store" },
+        { name: "Operations traceability", description: "Statuses and reconciliation" },
+        { name: "Customer traceability", description: "History for loyalty" },
+      ],
+      flow: [
+        { title: "Enable your payment channels", description: "Set physical and digital channels based on each sale type." },
+        { title: "Monitor sales by operation", description: "Track approved, pending, and rejected payments live." },
+        { title: "Optimize conversion and recurrence", description: "Use customer data for promotions and retention." },
+      ],
+    },
+    transporte: {
+      badge: "Solution for Transport",
+      title: "Manage collections and fund distribution with full traceability",
+      subtitle:
+        "AntillaPay supports high-frequency payments with strong financial control for routes, services, and customers.",
+      audience: "Logistics operators, mobility services, and passenger transport.",
+      stats: [
+        { value: "High frequency", label: "Continuous operational processing" },
+        { value: "1-3 days", label: "Estimated domestic payout window" },
+        { value: "Full", label: "Payment and payout traceability" },
+      ],
+      capabilities: [
+        { title: "Recurring and event-based collections", description: "Run ticket, route, or service payments consistently." },
+        { title: "Live status tracking", description: "Follow operation progress to react quickly." },
+        { title: "Third-party payouts", description: "Manage domestic transfers to linked accounts with control." },
+        { title: "Exportable financial control", description: "Generate reports for admin reconciliation and closeouts." },
+      ],
+      modules: [
+        { name: "Operations traceability", description: "Service-level payment control" },
+        { name: "National payouts", description: "Transfers and domestic payments" },
+        { name: "Manage your balance", description: "Liquidity for daily operation" },
+      ],
+      flow: [
+        { title: "Centralize operational collections", description: "Consolidate payments by route, unit, or service type." },
+        { title: "Distribute funds with control", description: "Schedule outflows and monitor each domestic payout." },
+        { title: "Reconcile and report", description: "Export information for administrative decisions." },
+      ],
+    },
+    hosteleriaOcio: {
+      badge: "Solution for Hospitality and Leisure",
+      title: "Upgrade guest experience with smooth checkout and stronger control",
+      subtitle:
+        "Simplify payments for bookings, services, and consumptions while keeping end-to-end operational visibility.",
+      audience: "Hotels, restaurants, bars, and entertainment venues.",
+      stats: [
+        { value: "+20%", label: "Potential improvement in payment experience" },
+        { value: "24/7", label: "Operational monitoring from dashboard" },
+        { value: "360", label: "Customer and transaction view" },
+      ],
+      capabilities: [
+        { title: "Fast customer checkout", description: "Reduce friction in service and add-on charges." },
+        { title: "Remote collection before and after service", description: "Send links for bookings, deposits, and complementary charges." },
+        { title: "Customer profile and recurrence", description: "Review history and behavior for loyalty and upsell." },
+        { title: "Shift-close reporting", description: "Export data for administration and shift-level control." },
+      ],
+      modules: [
+        { name: "Payment Links", description: "Bookings and remote collections" },
+        { name: "Customer traceability", description: "Guest-level payment history" },
+        { name: "Operations traceability", description: "Live operation status" },
+      ],
+      flow: [
+        { title: "Design experiences and collection flows", description: "Configure reservations, deposits, and service payments." },
+        { title: "Monitor operations by customer", description: "Track statuses to deliver proactive support." },
+        { title: "Close shifts with evidence", description: "Export reports for follow-up and control." },
+      ],
+    },
+    vending: {
+      badge: "Solution for Vending",
+      title: "Automate high-volume collections with lightweight operations",
+      subtitle:
+        "AntillaPay supports automated collection models with transaction visibility and centralized financial control.",
+      audience: "Vending and self-service network operators.",
+      stats: [
+        { value: "Scalable", label: "Operation across multiple points" },
+        { value: "Live", label: "Transaction-level status" },
+        { value: "Exportable", label: "Recurring documental control" },
+      ],
+      capabilities: [
+        { title: "Efficient digital collection", description: "Enable quick flows for high-frequency, low-ticket transactions." },
+        { title: "Point-level monitoring", description: "Measure performance by location and machine type." },
+        { title: "Centralized balance management", description: "Control available funds for replenishment and maintenance." },
+        { title: "Network reporting", description: "Download information for financial and operational analysis." },
+      ],
+      modules: [
+        { name: "Payment Links", description: "Simplified digital collection" },
+        { name: "Operations traceability", description: "Status by payment" },
+        { name: "Manage your balance", description: "Operational liquidity" },
+      ],
+      flow: [
+        { title: "Configure the collection model", description: "Standardize amounts and channels by selling point." },
+        { title: "Track status and recurrence", description: "Monitor behavior by hour, day, and location." },
+        { title: "Export and optimize network", description: "Use data to improve coverage and performance." },
+      ],
+    },
+    energia: {
+      badge: "Solution for Energy",
+      title: "Structure energy-service collections with full traceability",
+      subtitle:
+        "From recurring charges to financial reconciliation, AntillaPay improves operations for energy-sector companies.",
+      audience: "Energy service providers, distributors, and utility operators.",
+      stats: [
+        { value: "Monthly", label: "Structured recurring collection" },
+        { value: "Integral", label: "Customer and operation control" },
+        { value: "Auditable", label: "Reports for internal compliance" },
+      ],
+      capabilities: [
+        { title: "Service-cycle collections", description: "Run recurring charges and track collection status." },
+        { title: "Customer operational relationship", description: "Review history to prioritize recovery and support." },
+        { title: "Control and compliance", description: "Keep traces and evidence for internal audit reviews." },
+        { title: "Document export", description: "Generate information ready for finance, operations, and leadership." },
+      ],
+      modules: [
+        { name: "Operations traceability", description: "Collections and cycle statuses" },
+        { name: "Customer traceability", description: "History and segmentation" },
+        { name: "Manage your balance", description: "Liquidity control" },
+      ],
+      flow: [
+        { title: "Structure collection operations", description: "Define processes by energy service type." },
+        { title: "Supervise customers and payments", description: "Monitor compliance and behavior by segment." },
+        { title: "Reconcile and report", description: "Export data for control and continuous improvement." },
+      ],
+    },
+    serviciosHogar: {
+      badge: "Solution for Home Services",
+      title: "Improve customer relationships with simple collection flows",
+      subtitle:
+        "AntillaPay simplifies collections for recurring home services with customer-level visibility and centralized operation.",
+      audience: "Maintenance, repair, and household subscription services.",
+      stats: [
+        { value: "+30%", label: "Faster commercial response" },
+        { value: "1 view", label: "Customer and transaction management" },
+        { value: "Ready", label: "Exportables for internal follow-up" },
+      ],
+      capabilities: [
+        { title: "Flexible service charging", description: "Accept one-time or recurring payments based on contract type." },
+        { title: "Remote payment links", description: "Send collections without manual-heavy processes." },
+        { title: "Customer-level history", description: "Analyze recurrence, punctuality, and account value." },
+        { title: "Operational documentation", description: "Export data for administration, billing, and support." },
+      ],
+      modules: [
+        { name: "Payment Links", description: "Immediate remote collections" },
+        { name: "Customer traceability", description: "Relationship and historical activity" },
+        { name: "Operations traceability", description: "Status monitoring" },
+      ],
+      flow: [
+        { title: "Enable service-based charging", description: "Configure payment by visit or recurring plan." },
+        { title: "Track each operation", description: "Control statuses to keep a consistent experience." },
+        { title: "Export for internal control", description: "Document operation and improve commercial decisions." },
+      ],
+    },
+    bancos: {
+      badge: "Solution for Banks",
+      title: "Power financial services with a modern operations layer",
+      subtitle:
+        "AntillaPay enables payment experiences and operational control for institutions that need agility and traceability.",
+      audience: "Banks, financial institutions, and transactional service units.",
+      stats: [
+        { value: "Scale", label: "Multi-unit and multichannel operation" },
+        { value: "Real time", label: "Critical-status monitoring" },
+        { value: "Reliable", label: "Traces for risk and compliance" },
+      ],
+      capabilities: [
+        { title: "Infrastructure for payments and outflows", description: "Manage collections, balances, and domestic disbursements from one framework." },
+        { title: "Operational governance", description: "Strengthen traceability and control for risk and compliance teams." },
+        { title: "Liquidity view control", description: "Monitor availability, withdrawals, and critical movements." },
+        { title: "Audit export", description: "Get reports ready for internal financial and regulatory review." },
+      ],
+      modules: [
+        { name: "National payouts", description: "Transfers and local banking management" },
+        { name: "Manage your balance", description: "Liquidity and movements" },
+        { name: "Operations traceability", description: "Status and alert control" },
+        { name: "Customer traceability", description: "Commercial and risk view" },
+      ],
+      flow: [
+        { title: "Configure transactional services", description: "Structure processes by product or banking segment." },
+        { title: "Monitor operations and compliance", description: "Track critical statuses with a consolidated view." },
+        { title: "Audit and optimize", description: "Export traces and improve operational response times." },
+      ],
+    },
+  },
+};
+
+const mergeSolutionByLanguage = (base, override = {}) => ({
+  ...base,
+  ...override,
+  stats: base.stats.map((item, index) => ({ ...item, ...(override.stats?.[index] || {}) })),
+  capabilities: base.capabilities.map((item, index) => ({ ...item, ...(override.capabilities?.[index] || {}) })),
+  modules: base.modules.map((item, index) => ({ ...item, ...(override.modules?.[index] || {}) })),
+  flow: base.flow.map((item, index) => ({ ...item, ...(override.flow?.[index] || {}) })),
+});
+
+export function getSectorSolutions(language = "es") {
+  if (language === "es") {
+    return baseSectorSolutions;
+  }
+
+  const languageCopy = localizedSectorOverrides[language] || localizedSectorOverrides.en;
+  return Object.fromEntries(
+    Object.entries(baseSectorSolutions).map(([key, solution]) => [
+      key,
+      mergeSolutionByLanguage(solution, languageCopy[key]),
+    ]),
+  );
+}
+
+export const sectorSolutions = baseSectorSolutions;

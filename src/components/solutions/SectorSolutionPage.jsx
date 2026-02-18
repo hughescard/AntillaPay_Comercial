@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { createPageUrl } from "@/utils";
 import { redirectToLogin } from "@/shared/auth/loginRedirect";
+import { useLanguage } from "@/components/i18n/LanguageContext";
 
 const isExternalUrl = (href) => typeof href === "string" && /^https?:\/\//i.test(href);
 
@@ -58,7 +59,35 @@ const accentById = Object.freeze({
 });
 
 export default function SectorSolutionPage({ solution }) {
+  const { language } = useLanguage();
   const accent = accentById[solution.id] || accentById.pymes;
+  const uiCopyByLanguage = {
+    es: {
+      backToSolutions: "Volver a soluciones",
+      signIn: "Iniciar sesion",
+      contactSales: "Hablar con ventas",
+      impactTitle: "Impacto esperado en este sector",
+      modulesTitle: "Modulos recomendados del dashboard",
+      directLink: "Vinculacion directa",
+      goToModule: "Ir al modulo",
+      flowTitle: "Flujo operativo sugerido",
+      traceabilityNote: "Todas las soluciones incluyen trazabilidad y exportacion documental para control operativo.",
+      designImplementation: "Disenar implementacion",
+    },
+    en: {
+      backToSolutions: "Back to solutions",
+      signIn: "Sign in",
+      contactSales: "Contact sales",
+      impactTitle: "Expected impact in this sector",
+      modulesTitle: "Recommended dashboard modules",
+      directLink: "Direct integration",
+      goToModule: "Go to module",
+      flowTitle: "Suggested operating flow",
+      traceabilityNote: "All solutions include traceability and document export for operational control.",
+      designImplementation: "Design implementation",
+    },
+  };
+  const copy = uiCopyByLanguage[language] || uiCopyByLanguage.en;
 
   return (
     <div className="min-h-screen bg-[#f6f8fc] pt-24 pb-16">
@@ -68,7 +97,7 @@ export default function SectorSolutionPage({ solution }) {
           className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900 mb-5 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          Volver a soluciones
+          {copy.backToSolutions}
         </Link>
 
         <div className={`relative overflow-hidden rounded-3xl border ${accent.border} bg-gradient-to-br ${accent.gradient} p-8 md:p-10 text-white shadow-[0_20px_80px_-35px_rgba(15,23,42,0.45)]`}>
@@ -89,16 +118,16 @@ export default function SectorSolutionPage({ solution }) {
                   onClick={redirectToLogin}
                   className="inline-flex items-center gap-2 rounded-xl bg-white text-slate-900 px-4 py-2.5 font-semibold hover:bg-slate-100"
                 >
-                  Iniciar sesión
+                  {copy.signIn}
                 </button>
                 <Button variant="outline" onClick={() => (window.location.href = createPageUrl("Contact"))} className="border-white/50 bg-transparent text-white hover:bg-white/10 hover:text-white">
-                  Hablar con ventas
+                  {copy.contactSales}
                 </Button>
               </div>
             </div>
 
             <div className="bg-white/10 backdrop-blur rounded-2xl border border-white/20 p-5 md:p-6">
-              <p className="text-sm text-white/85 mb-4">Impacto esperado en este sector</p>
+              <p className="text-sm text-white/85 mb-4">{copy.impactTitle}</p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {solution.stats.map((item) => (
                   <div key={item.label} className="rounded-xl bg-white/10 p-4 border border-white/15">
@@ -115,8 +144,8 @@ export default function SectorSolutionPage({ solution }) {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <article className={`rounded-2xl border ${accent.border} bg-gradient-to-br ${accent.soft} p-6`}>
           <div className="flex items-center justify-between gap-3 mb-4">
-            <h2 className="text-2xl md:text-3xl font-semibold text-slate-900">Módulos recomendados del dashboard</h2>
-            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${accent.chip}`}>Vinculación directa</span>
+            <h2 className="text-2xl md:text-3xl font-semibold text-slate-900">{copy.modulesTitle}</h2>
+            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${accent.chip}`}>{copy.directLink}</span>
           </div>
           <div className="grid md:grid-cols-2 gap-3">
             {solution.modules.map((module) => (
@@ -130,12 +159,12 @@ export default function SectorSolutionPage({ solution }) {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-sm text-[#5b5df0] hover:underline"
                   >
-                    Ir al módulo
+                    {copy.goToModule}
                     <ArrowRight className="w-3.5 h-3.5" />
                   </a>
                 ) : (
                   <Link to={module.href} className="inline-flex items-center gap-1 text-sm text-[#5b5df0] hover:underline">
-                    Ir al módulo
+                    {copy.goToModule}
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 )}
@@ -161,7 +190,7 @@ export default function SectorSolutionPage({ solution }) {
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <article className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
-          <h3 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-5">Flujo operativo sugerido</h3>
+          <h3 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-5">{copy.flowTitle}</h3>
           <div className="grid md:grid-cols-3 gap-4">
             {solution.flow.map((step, index) => (
               <div key={step.title} className="rounded-xl border border-slate-200 p-4 bg-slate-50/50">
@@ -176,9 +205,9 @@ export default function SectorSolutionPage({ solution }) {
           <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4 flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-slate-700 inline-flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              Todas las soluciones incluyen trazabilidad y exportación documental para control operativo.
+              {copy.traceabilityNote}
             </p>
-            <Button onClick={() => (window.location.href = createPageUrl("Contact"))}>Diseñar implementación</Button>
+            <Button onClick={() => (window.location.href = createPageUrl("Contact"))}>{copy.designImplementation}</Button>
           </div>
         </article>
       </section>

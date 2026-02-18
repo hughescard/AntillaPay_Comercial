@@ -17,6 +17,11 @@ const languageNames = {
   'zh-Hans': '简体中文'
 };
 
+const enabledLanguageEntries = [
+  ['es', languageNames.es],
+  ['en', languageNames.en],
+];
+
 const CubaIslandIcon = ({ className }) => (
   <img src={cubaIslandIcon} alt="" className={className} aria-hidden="true" />
 );
@@ -234,7 +239,7 @@ function MobileMenu({ productsMenu, solutionsMenu, developersMenu, language, lan
           </nav>
           <div className="p-4 border-t space-y-3">
             <div className="flex gap-2 justify-center">
-              {Object.entries(languageNames).map(([code]) => (
+              {enabledLanguageEntries.map(([code]) => (
                 <button
                   key={code}
                   onClick={() => changeLanguage(code)}
@@ -500,13 +505,13 @@ export default function Header() {
                 className="flex items-center gap-1.5 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors rounded-lg hover:bg-gray-100/60 focus:outline-none focus:ring-2 focus:ring-violet-500"
               >
                 <Globe className="w-4 h-4" />
-                <span className="hidden xl:inline">{languageNames[language]}</span>
+                <span className="hidden xl:inline">{languageNames[language] || languageNames.en}</span>
                 <ChevronDown className="w-3 h-3" />
               </button>
               
               {showLangMenu && (
                 <div className="absolute top-full right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-100 py-1 min-w-[140px]">
-                  {Object.entries(languageNames).map(([code, name]) => (
+                  {enabledLanguageEntries.map(([code, name]) => (
                     <button
                       key={code}
                       onClick={() => { changeLanguage(code); setShowLangMenu(false); }}
