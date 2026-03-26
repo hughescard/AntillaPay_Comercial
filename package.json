@@ -4,9 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node ./scripts/dev-stack.mjs",
+    "dev:marketing": "vite",
+    "dev:pasarela": "npm run dev --prefix pasarela",
     "build": "vite build",
+    "build:pasarela": "npm run build --prefix pasarela",
     "lint": "eslint .",
+    "lint:pasarela": "npm run lint --prefix pasarela",
     "preview": "vite preview"
   },
   "dependencies": {

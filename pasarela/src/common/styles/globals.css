@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f6f9fc;
+  --foreground: #32325d;
+  --surface: #f4f5f7;
+  --surface-muted: #f3f4f6;
+  --surface-strong: #e5e7eb;
+
+  --grad-start: #fdf4ff; 
+  --grad-mid1: #fae8ff;  
+  --grad-mid2: #e0e7ff;  
+  --grad-mid3: #dbeafe;  
+  --grad-mid4: #d1fae5;  
+  --grad-mid5: #fef3c7;  
+  --grad-end: #fff7d5;   
+  
+  --grad-blob-purple: rgba(167, 139, 250, 0.3); 
+  --grad-blob-yellow: rgba(251, 191, 36, 0.15); 
+  
+  --border: #e5e7eb;
+  --border-strong: #d1d5db;
+  --divider: #f1f5f9;
+  
+  --accent: #635bff;
+  --accent-hover: #544dc9;
+  --accent-soft: rgba(99, 91, 255, 0.24);
+  --accent-foreground: #ffffff;
+  
+  --muted-foreground: #4b5563;
+  --subtle-foreground: #9ca3af;
+  --disabled-foreground: #d1d5db;
+  
+  --tooltip-bg: #334155;
+  --overlay: rgba(0, 0, 0, 0.5);
+  
+  --danger: #ef4444;
+  --danger-surface: #fef2f2;
+  
+  --status-restricted: #e96b34; /* Naranja (Modo prueba) */
+  --status-review: #eab308;    /* Amarillo */
+  --status-active: #22c55e;    /* Verde */
+  --status-suspended: #ef4444; /* Rojo */
+  --success: #22c55e;
+
+}
+
+
+
+@theme inline {
+  --color-grad-start: var(--grad-start);
+  --color-grad-mid1: var(--grad-mid1);
+  --color-grad-mid2: var(--grad-mid2);
+  --color-grad-mid3: var(--grad-mid3);
+  --color-grad-mid4: var(--grad-mid4);
+  --color-grad-mid5: var(--grad-mid5);
+  --color-grad-end: var(--grad-end);
+  
+  --color-grad-blob-purple: var(--grad-blob-purple);
+  --color-grad-blob-yellow: var(--grad-blob-yellow);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-strong: var(--surface-strong);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-divider: var(--divider);
+
+  --color-muted-foreground: var(--muted-foreground);
+  --color-subtle-foreground: var(--subtle-foreground);
+  --color-disabled-foreground: var(--disabled-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-danger: var(--danger);
+  --color-danger-surface: var(--danger-surface);
+  
+  --color-status-restricted: var(--status-restricted);
+  --color-status-review: var(--status-review);
+  --color-status-active: var(--status-active);
+  --color-status-suspended: var(--status-suspended);
+
+  --color-tooltip-bg: var(--tooltip-bg);
+  --color-overlay: var(--overlay);
+
+  --color-success: var(--success);
+  
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+  --background: #f6f9fc;
+  --foreground: #32325d;
+  --surface: #ffffff; 
+  --surface-muted: #f3f4f6;
+  --surface-strong: #e5e7eb;
+
+  --grad-start: #fdf4ff; 
+  --grad-mid1: #fae8ff;  
+  --grad-mid2: #e0e7ff;  
+  --grad-mid3: #dbeafe;  
+  --grad-mid4: #d1fae5;  
+  --grad-mid5: #fef3c7;  
+  --grad-end: #fff7d5;   
+  
+  --grad-blob-purple: rgba(167, 139, 250, 0.3); 
+  --grad-blob-yellow: rgba(251, 191, 36, 0.15); 
+  
+  --border: #e5e7eb;
+  --border-strong: #d1d5db;
+  --divider: #f1f5f9;
+  
+  --accent: #635bff;
+  --accent-hover: #544dc9;
+  --accent-soft: rgba(99, 91, 255, 0.24);
+  --accent-foreground: #ffffff;
+  
+  --muted-foreground: #4b5563;
+  --subtle-foreground: #9ca3af;
+  --disabled-foreground: #d1d5db;
+  
+  --tooltip-bg: #334155;
+  --overlay: rgba(0, 0, 0, 0.5);
+  
+  --danger: #ef4444;
+  --danger-surface: #fef2f2;
+  
+  --status-restricted: #e96b34; /* Naranja (Modo prueba) */
+  --status-review: #eab308;    /* Amarillo */
+  --status-active: #22c55e;    /* Verde */
+  --status-suspended: #ef4444; /* Rojo */
+  --success: #22c55e;
+}
+}
+
+/* # Para cambiar de tema si es necesario en el futuro
+const [isDark, setIsDark] = useState(true)
+
+useEffect(() => {
+  const currentTheme = document.documentElement.dataset.theme
+  setIsDark(currentTheme === "dark")
+}, [])
+
+const handleThemeToggle = () => {
+  const nextIsDark = !isDark
+  document.documentElement.dataset.theme = nextIsDark ? "dark" : "light"
+  setIsDark(nextIsDark)
+} */
+  
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  user-select: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-enter-step {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+}
+
+.animate-exit-step {
+  animation: fadeOutDown 0.5s ease-in forwards;
+}
