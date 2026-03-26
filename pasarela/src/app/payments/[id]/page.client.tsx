@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { AlertTriangle, ArrowLeft, CheckCircle2, Pencil, ShieldAlert, XCircle } from 'lucide-react';
 import { Navbar } from '@/common/components/ui/Navbar';
 import { Header } from '@/common/components/layout/Header';
@@ -17,10 +17,12 @@ const money = (minor: number, currency: string) =>
 
 export default function PaymentDetailsPage() {
   const params = useParams<{ id: string }>();
+  const searchParams = useSearchParams();
   const router = useRouter();
   const { actor, actors, hasPermission } = usePaymentActor();
   const { getPayment, approve, reject, cancel, execute } = useEnterprisePayments();
-  const paymentId = Array.isArray(params?.id) ? params.id[0] : params?.id;
+  const routePaymentId = Array.isArray(params?.id) ? params.id[0] : params?.id;
+  const paymentId = searchParams.get('id') ?? routePaymentId;
   const payment = paymentId ? getPayment(paymentId) : null;
 
   const [approveOpen, setApproveOpen] = useState(false);

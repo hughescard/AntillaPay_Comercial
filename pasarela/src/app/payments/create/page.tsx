@@ -12,6 +12,7 @@ import { useEnterprisePayments } from '../hooks/useEnterprisePayments';
 import { PROCESSOR_OPTIONS } from '../lib/paymentsWorkspace';
 import { usePaymentActor } from '../hooks/usePaymentActor';
 import type { Beneficiary, PaymentAttachment, PaymentDraftInput } from '../types';
+import { paymentDetailsHref } from '@/lib/detailRoutes';
 
 const steps = [
   'Beneficiario',
@@ -332,7 +333,7 @@ function PaymentCreateContent() {
           ? saveDraft(draft, actor, paymentId || undefined)
           : submitForApproval(draft, actor, paymentId || undefined);
       setActionError('');
-      router.push(`/payments/${result.id}`);
+      router.push(paymentDetailsHref(result.id));
     } catch (error) {
       setActionError(error instanceof Error ? error.message : 'No pudimos guardar este pago.');
     } finally {
@@ -423,7 +424,7 @@ function PaymentCreateContent() {
                 Solo el creador con permiso de actualización puede editar pagos en borrador o rechazados.
               </p>
               <Link
-                href={`/payments/${existingPayment.id}`}
+                href={paymentDetailsHref(existingPayment.id)}
                 className="mt-6 inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium text-foreground"
               >
                 <ArrowLeft size={16} />
@@ -446,7 +447,7 @@ function PaymentCreateContent() {
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <Link
-                  href={isEditing ? `/payments/${paymentId}` : '/payments'}
+                  href={isEditing ? paymentDetailsHref(paymentId) : '/payments'}
                   className="mb-3 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
                 >
                   <ArrowLeft size={16} />

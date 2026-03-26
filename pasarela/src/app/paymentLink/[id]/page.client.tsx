@@ -2,7 +2,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { PaymentPreview } from "../components/PaymentPreview";
 import { usePaymentLink, usePayPaymentLink } from "../hooks/usePaymentLink";
@@ -12,13 +12,16 @@ import type {
   Errors,
   PaymentPreviewPayParams,
 } from "../components/paymentPreview.types";
+import { invoiceDetailsHref } from "@/lib/detailRoutes";
 
 export default function PaymentLinkPage() {
   const { t } = useTranslation();
   const params = useParams<{ id: string }>();
+  const searchParams = useSearchParams();
   const router = useRouter();
   const {postPayinOfPaymentLink, postTransferOfPaymentLink, getPaymentLinkPdf} = useOperation();
-  const id = Array.isArray(params?.id) ? params.id[0] : params?.id;
+  const routeId = Array.isArray(params?.id) ? params.id[0] : params?.id;
+  const id = searchParams.get('id') ?? routeId;
   const { previewData, showConfirmation, status, isLoading, error } = usePaymentLink(id);
   const { isPaying } = usePayPaymentLink();
   const [isPaid, setIsPaid] = useState(false);
@@ -96,7 +99,7 @@ export default function PaymentLinkPage() {
       if (result.url && result.url.trim() !== "") {
         router.push(result.url);
       } else {
-        router.push(`/invoice/${id}/`);
+        router.push(invoiceDetailsHref(id));
       }
       return;
     }else{
@@ -136,7 +139,7 @@ export default function PaymentLinkPage() {
       router.push(previewData.successURL);
       return null;
     }
-    router.push(`/invoice/${id}/`);
+    router.push(invoiceDetailsHref(id));
     return null;
   }
 

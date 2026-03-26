@@ -6,6 +6,7 @@ import { ClientData } from '@/common/types/clientsTypes';
 import { MoreHorizontal, ExternalLink, Copy } from 'lucide-react';
 import Link from 'next/link';
 import { Modal } from '@/common/components/ui/Modal';
+import { clientDetailsHref } from '@/lib/detailRoutes';
 
 interface ClientsTableProps {
   data: ClientData[];
@@ -80,7 +81,7 @@ export const ClientsTable = ({ data, columns }: ClientsTableProps) => {
                     {col.key === 'type' && t(`clients.filters.type_${client.type}`)}
                     {col.key === 'actions' && (
                       <Link 
-                        href={`/clients/${client.id}`}
+                        href={clientDetailsHref(client.id)}
                         className="text-accent hover:text-accent-hover font-medium text-xs"
                       >
                         {t('clients.table.action_view')}
@@ -117,7 +118,7 @@ export const ClientsTable = ({ data, columns }: ClientsTableProps) => {
           <div className="flex flex-col py-2">
             
             <Link 
-              href={`/clients/${menuState.client.id}`}
+              href={clientDetailsHref(menuState.client.id)}
               onClick={handleCloseModal}
               className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-foreground hover:bg-surface-muted transition-colors text-left"
             >

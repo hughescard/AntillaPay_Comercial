@@ -8,7 +8,7 @@ import { PricesTable } from './_components/PricesTable';
 import { ProductInfoSidebar } from './_components/ProductInfoSidebar'; 
 import { useEffect, useState } from 'react';
 import { useProducts } from '../_hooks/useProducts';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { CatalogProduct, CatalogProductCreate, currency, Price } from '@/app/paymentLink/create/types';
 import { ProductDrawer } from '@/app/paymentLink/create/components/product/ProductDrawer';
 import { useCreateProduct } from '@/app/paymentLink/create/hooks/useCreateProduct';
@@ -22,7 +22,9 @@ import { useRouter } from 'next/navigation';
 
 export default function ProductDetailsPage() {
   const params = useParams();
-  const id = params.id as string;
+  const searchParams = useSearchParams();
+  const routeId = params.id as string | undefined;
+  const id = searchParams.get('id') ?? routeId ?? '';
   const {getProductById} = useProducts();
   const {t} = useTranslation();
   const router = useRouter();
@@ -55,6 +57,10 @@ export default function ProductDetailsPage() {
 
   useEffect(()=>{
     const fetchProduct = async ()=>{
+      if (!id) {
+        router.push('/products');
+        return;
+      }
       setLoading(true);
       const response = await getProductById({id});
       if(response.success){
@@ -67,7 +73,7 @@ export default function ProductDetailsPage() {
   
     fetchProduct();
 
-  },[refresh])
+  },[getProductById, id, refresh, router])
 
   const handleCloseModal =()=>{
     if(statusChangeModal){

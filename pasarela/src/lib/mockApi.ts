@@ -338,7 +338,7 @@ const seedPaymentLinks = (products: CatalogProduct[]): PaymentLinkRecord[] => {
       generatePDF: true,
       status: "active",
       createdAt: hoursAgo(12),
-      link: "/pasarela/paymentLink/link-1",
+      link: "/pasarela/paymentLink/detail?id=link-1",
     },
     {
       id: "link-2",
@@ -357,7 +357,7 @@ const seedPaymentLinks = (products: CatalogProduct[]): PaymentLinkRecord[] => {
       generatePDF: false,
       status: "draft",
       createdAt: daysAgo(4),
-      link: "/pasarela/paymentLink/link-2",
+      link: "/pasarela/paymentLink/detail?id=link-2",
     },
     {
       id: "link-3",
@@ -376,7 +376,7 @@ const seedPaymentLinks = (products: CatalogProduct[]): PaymentLinkRecord[] => {
       generatePDF: true,
       status: "paid",
       createdAt: daysAgo(2),
-      link: "/pasarela/paymentLink/link-3",
+      link: "/pasarela/paymentLink/detail?id=link-3",
     },
   ];
 };
@@ -1722,7 +1722,7 @@ class MockApi {
           generatePDF: payload.generatePDF ?? false,
           status: "active",
           createdAt: nowIso(),
-          link: `/pasarela/paymentLink/${id}`,
+          link: `/pasarela/paymentLink/detail?id=${id}`,
         };
         next.paymentLinks.unshift(link);
         return link;

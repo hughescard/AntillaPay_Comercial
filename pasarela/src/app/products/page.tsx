@@ -24,6 +24,7 @@ import { getPreviewTotals } from '../paymentLink/create/components/product/utils
 import { ExportModal } from '@/common/components/ui/ExportModal';
 import Image from 'next/image';
 import { useRbacSimulation } from '@/common/context';
+import { productDetailsHref } from '@/lib/detailRoutes';
 
 const DEFAULT_COLUMNS = [
   { key: 'name', label: 'products.table.col_product', visible: true, order: 0 },
@@ -301,7 +302,7 @@ export default function ProductsPage() {
 
   const renderMenuActions = (item: CatalogProduct, close: () => void) => (
     <>
-      <Link href={`/products/${item.id}`} onClick={close} className="flex cursor-pointer items-center gap-3 px-4 py-3 text-sm font-medium text-foreground hover:bg-surface-muted transition-colors w-full text-left">
+      <Link href={productDetailsHref(item.id)} onClick={close} className="flex cursor-pointer items-center gap-3 px-4 py-3 text-sm font-medium text-foreground hover:bg-surface-muted transition-colors w-full text-left">
         {t('products.actions.view')}
       </Link>
       

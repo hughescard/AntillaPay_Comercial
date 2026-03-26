@@ -1,12 +1,14 @@
 'use client';
 
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useInvoicePaymentLink } from "../hooks/useInvoicePaymentLink";
 import { AfterPaymentPreview } from "@/app/paymentLink/components/AfterPaymentPreview";
 
 export default function PaymentLinkInvoicePage() {
   const params = useParams<{ id: string }>();
-  const id = Array.isArray(params?.id) ? params.id[0] : params?.id;
+  const searchParams = useSearchParams();
+  const routeId = Array.isArray(params?.id) ? params.id[0] : params?.id;
+  const id = searchParams.get('id') ?? routeId;
   const { previewData, isLoading, error } = useInvoicePaymentLink(id);
 
   if (isLoading) {

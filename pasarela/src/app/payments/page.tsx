@@ -20,6 +20,7 @@ import { useEnterprisePayments, DEFAULT_PAYMENT_FILTERS } from './hooks/useEnter
 import { usePaymentActor } from './hooks/usePaymentActor';
 import { PaymentStatusBadge } from './_components/PaymentStatusBadge';
 import { hasPermissionForRole } from '@/lib/rbac';
+import { paymentDetailsHref } from '@/lib/detailRoutes';
 
 const money = (minor: number, currency: string) =>
   new Intl.NumberFormat('en-US', {
@@ -571,7 +572,7 @@ export default function PaymentsListPage() {
                             <td className="px-5 py-4">
                               <div className="flex justify-end gap-2">
                                 <Link
-                                  href={`/payments/${payment.id}`}
+                                  href={paymentDetailsHref(payment.id)}
                                   className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-1.5 text-xs font-medium text-foreground hover:bg-surface-muted"
                                 >
                                   <Eye size={14} />

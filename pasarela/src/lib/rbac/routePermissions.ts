@@ -11,7 +11,9 @@ export const PUBLIC_RBAC_ROUTES = [
   /^\/register$/,
   /^\/forgot_password$/,
   /^\/invoice\/.+$/,
+  /^\/invoice\/detail$/,
   /^\/paymentLink\/[^/]+$/,
+  /^\/paymentLink\/detail$/,
 ] as const;
 
 export const ROUTE_PERMISSION_RULES: RoutePermissionRule[] = [
@@ -19,14 +21,17 @@ export const ROUTE_PERMISSION_RULES: RoutePermissionRule[] = [
   { matcher: /^\/balances$/, anyOf: ["view_balance"] },
   { matcher: /^\/payments$/, anyOf: ["view_third_party_payments"] },
   { matcher: /^\/payments\/create$/, anyOf: ["create_third_party_payment", "update_third_party_payment"] },
+  { matcher: /^\/payments\/detail$/, anyOf: ["view_third_party_payment_details"] },
   { matcher: /^\/payments\/[^/]+$/, anyOf: ["view_third_party_payment_details"] },
   { matcher: /^\/paymentLink$/, anyOf: ["view_payment_links"] },
   { matcher: /^\/paymentLink\/create$/, anyOf: ["create_payment_link"] },
+  { matcher: /^\/products\/detail$/, anyOf: ["view_product_details"] },
   { matcher: /^\/products$/, anyOf: ["view_products"] },
   { matcher: /^\/products\/[^/]+$/, anyOf: ["view_product_details"] },
   { matcher: /^\/transactions$/, anyOf: ["view_payments", "view_incoming_transfers"] },
   { matcher: /^\/transactionsOut$/, anyOf: ["view_internal_transfers"] },
   { matcher: /^\/clients$/, anyOf: ["view_customers"] },
+  { matcher: /^\/clients\/detail$/, anyOf: ["view_customer_details"] },
   { matcher: /^\/clients\/[^/]+$/, anyOf: ["view_customer_details"] },
   { matcher: /^\/dashboard\/developers\/docs$/, anyOf: ["view_developer_docs"] },
   { matcher: /^\/dashboard\/developers\/keys$/, anyOf: ["view_api_keys"] },

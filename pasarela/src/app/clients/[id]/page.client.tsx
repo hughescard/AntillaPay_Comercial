@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { ClientHeader } from './_components/ClientHeader';
 import { ClientBasicInfo } from './_components/ClientBasicInfo';
 import { HistoryTable } from './_components/HistoryTable';
@@ -16,7 +16,9 @@ import { PayinHistory } from '@/common/types/payin';
 
 export default function ClientDetailPage() {
   const params = useParams();
-  const id = params.id as string;
+  const searchParams = useSearchParams();
+  const routeId = params.id as string | undefined;
+  const id = searchParams.get('id') ?? routeId ?? '';
   const {getCustomerById, getOperationsById} = useCustomers();
   const [loadingClientData,setLoadingClientData] = useState(true);
   const [loadingOperations,setLoadingOperations] = useState(true);
@@ -56,7 +58,7 @@ export default function ClientDetailPage() {
       setLoadingClientData(false);
     }
     fetchData();
-  },[])
+  },[getCustomerById, id])
 
   useEffect(()=>{
     const fetchClientOperations = async () => {
@@ -71,7 +73,7 @@ export default function ClientDetailPage() {
       setLoadingOperations(false);
     }
     fetchClientOperations();
-  },[currentPage])
+  },[currentPage, getOperationsById, id])
 
   return (
     <div className='lg:flex h-full min-h-0 overflow-hidden animate-enter-step'>

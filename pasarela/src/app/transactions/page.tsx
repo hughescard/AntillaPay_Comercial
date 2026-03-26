@@ -18,6 +18,7 @@ import { Payin } from '@/common/types/payin';
 import { ExportModal } from '@/common/components/ui/ExportModal';
 import { ColumnConfig } from '../clients/page';
 import { useRbacSimulation } from '@/common/context';
+import { clientDetailsHref } from '@/lib/detailRoutes';
 
 const DEFAULT_COLUMNS_PAYIN = [
   { key: 'client', label: 'transactions.table.col_client', visible: true, order: 0 },
@@ -224,7 +225,7 @@ export default function TransactionsPage() {
         return(
           <div className="flex flex-col">
             {clientId ? (
-              <Link href={`/clients/${clientId}`} className="font-semibold text-accent hover:text-accent-hover">{clientEmail}</Link>
+              <Link href={clientDetailsHref(clientId)} className="font-semibold text-accent hover:text-accent-hover">{clientEmail}</Link>
             ) : (
               <span className="font-semibold">{clientEmail}</span>
             )}

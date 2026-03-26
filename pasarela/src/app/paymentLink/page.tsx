@@ -19,6 +19,7 @@ import { handleCopyLink } from "@/lib/copyLink";
 import { ExportModal } from '@/common/components/ui/ExportModal';
 import { PrincipalModal } from "@/common/components/ui/PrincipalModal";
 import { useRbacSimulation } from "@/common/context";
+import { paymentLinkDetailsHref } from "@/lib/detailRoutes";
 
 export default function Home() {
   const { t } = useTranslation()
@@ -212,7 +213,7 @@ export default function Home() {
   const renderMenuActions = (item: PaymentLinkListItem, close: () => void) => (
     <div>
       <Link
-      href={`/paymentLink/${item.id}`}
+      href={paymentLinkDetailsHref(item.id)}
       onClick={close}
       className="flex cursor-pointer items-center gap-3 px-4 py-3 text-sm font-medium text-foreground hover:bg-surface-muted transition-colors w-full text-left"
         >
