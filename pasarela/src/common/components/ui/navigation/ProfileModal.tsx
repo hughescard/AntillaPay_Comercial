@@ -62,13 +62,12 @@ export const ProfileModal = ({ isOpen, onClose, businessName, userName, onOutSan
     <div
       ref={modalRef}
       className={`
-        fixed right-3 top-18 sm:right-4 sm:top-20 lg:right-4 lg:top-18
+        fixed right-3 top-18 sm:right-4 sm:top-20 lg:left-3 lg:right-auto lg:top-18
         w-[min(24rem,calc(100vw-1.5rem))] 
         bg-surface border border-border rounded-xl shadow-xl z-[200] overflow-hidden 
-        transform transition-all duration-200 ease-in-out
+        transform transition-all duration-200 ease-in-out origin-top-right lg:origin-top-left
         ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
       `}
-      style={{ transformOrigin: 'top right' }}
     >
       {/* Header con Iniciales */}
       <div className="p-4 flex flex-col items-center justify-center border-b border-border bg-surface-muted/30">
