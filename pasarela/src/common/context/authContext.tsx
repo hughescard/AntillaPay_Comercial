@@ -4,6 +4,7 @@ import API from "@/lib/api";
 import { usePathname, useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState, useCallback, ReactNode } from "react";
 import { User } from "../types/userTypes";
+import { normalizeAppPathname } from "@/lib/rbac/normalizePathname";
 
 export const TOKEN_KEY = "authToken";
 
@@ -35,10 +36,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [refresh, setRefresh] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
+  const normalizedPathname = normalizeAppPathname(pathname);
   const isPublicRoute =
-    pathname === "/signin" ||
-    pathname === "/register" ||
-    pathname === "/forgot_password";
+    normalizedPathname === "/signin" ||
+    normalizedPathname === "/register" ||
+    normalizedPathname === "/forgot_password";
 
   const clearAuth = useCallback(() => {
     localStorage.removeItem(TOKEN_KEY);

@@ -4,16 +4,18 @@ import { ShieldAlert } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useRbacSimulation } from "@/common/context";
 import { getRoutePermissions, isPublicRbacRoute } from "@/lib/rbac";
+import { normalizeAppPathname } from "@/lib/rbac/normalizePathname";
 
 export const RbacRouteGate = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const { currentUser, hasAnyPermission } = useRbacSimulation();
+  const normalizedPathname = normalizeAppPathname(pathname);
 
-  if (!pathname || isPublicRbacRoute(pathname)) {
+  if (!normalizedPathname || isPublicRbacRoute(normalizedPathname)) {
     return <>{children}</>;
   }
 
-  const required = getRoutePermissions(pathname);
+  const required = getRoutePermissions(normalizedPathname);
   if (required && hasAnyPermission(required)) {
     return <>{children}</>;
   }

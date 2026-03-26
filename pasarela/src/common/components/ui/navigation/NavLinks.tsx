@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { navItems } from '@/lib/navData';
 import { useRbacSimulation } from '@/common/context';
+import { normalizeAppPathname } from '@/lib/rbac/normalizePathname';
 
 interface NavLinksProps {
   isNavBarCollapsed?: boolean;
@@ -20,6 +21,7 @@ interface TooltipState {
 
 export const NavLinks = ({ isNavBarCollapsed = false, onNavigate }: NavLinksProps) => {
   const pathname = usePathname();
+  const normalizedPathname = normalizeAppPathname(pathname);
   const { t } = useTranslation();
   const { hasPermission } = useRbacSimulation();
   
@@ -45,7 +47,7 @@ export const NavLinks = ({ isNavBarCollapsed = false, onNavigate }: NavLinksProp
     <>
       <div className="flex flex-col gap-1 px-3 py-2">
         {visibleNavItems.map((item) => {
-          const isActive = pathname === item.href;
+          const isActive = normalizedPathname === item.href;
           
           return (
             <Link

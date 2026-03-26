@@ -1,4 +1,5 @@
 import type { Permission } from "./permissions";
+import { normalizeAppPathname } from "./normalizePathname";
 
 type RoutePermissionRule = {
   matcher: RegExp;
@@ -36,7 +37,7 @@ export const ROUTE_PERMISSION_RULES: RoutePermissionRule[] = [
 ];
 
 export const isPublicRbacRoute = (pathname: string) =>
-  PUBLIC_RBAC_ROUTES.some((rule) => rule.test(pathname));
+  PUBLIC_RBAC_ROUTES.some((rule) => rule.test(normalizeAppPathname(pathname)));
 
 export const getRoutePermissions = (pathname: string) =>
-  ROUTE_PERMISSION_RULES.find((rule) => rule.matcher.test(pathname))?.anyOf ?? null;
+  ROUTE_PERMISSION_RULES.find((rule) => rule.matcher.test(normalizeAppPathname(pathname)))?.anyOf ?? null;
