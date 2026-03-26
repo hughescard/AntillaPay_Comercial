@@ -2,10 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   basePath: "/pasarela",
+  output: "export",
   turbopack: {
     root: process.cwd(),
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'http',
@@ -15,6 +17,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  trailingSlash: true,
 };
 
 export default nextConfig;

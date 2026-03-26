@@ -23,23 +23,24 @@ npm run lint
 
 ## Login Externo
 
-- El login interno fue eliminado.
-- El botón `Iniciar sesión` redirige a una URL externa configurada por entorno:
+- El botón `Iniciar sesión` redirige al bundle exportado de `pasarela` en `/pasarela/signin`.
+- En desarrollo local, `npm run dev` sigue usando el proxy hacia `pasarela` para simular el mismo flujo.
 - El acceso a `Documentación` en el menú de Desarrolladores también se puede redirigir por entorno:
 
 ```bash
-VITE_LOGIN_URL=https://tu-login-externo.com
-VITE_PASARELA_ORIGIN=https://tu-pasarela-externa.com
 VITE_DOCS_URL=https://tu-documentacion-externa.com
 VITE_TERMINAL_POS_URL=https://antillapos.vercel.app
 VITE_COMPANY_URL=https://tu-pagina-comercial-antilla-capital.com
 ```
 
-- En desarrollo local, si no se define `VITE_LOGIN_URL` ni `VITE_PASARELA_ORIGIN`, el botón usa `/pasarela/signin` y lo resuelve el stack local de `npm run dev`.
-- En Vercel, si no se define `VITE_LOGIN_URL` ni `VITE_PASARELA_ORIGIN`, el botón abre la ruta `/signin` del sitio comercial para mostrar un aviso de configuración pendiente.
 - Si no se define `VITE_DOCS_URL`, el fallback actual redirige a `/`.
 - Si no se define `VITE_TERMINAL_POS_URL`, el fallback actual usa `https://antillapos.vercel.app`.
 - Si no se define `VITE_COMPANY_URL`, el fallback actual redirige a `/`.
+
+## Deploy
+
+- `npm run build` genera el sitio comercial en `dist/` y exporta `pasarela` dentro de `dist/pasarela/`.
+- Vercel debe servir `/pasarela/*` antes del fallback SPA del marketing.
 
 ## Estructura (refactor 2026)
 
