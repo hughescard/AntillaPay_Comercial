@@ -9,9 +9,13 @@ export const normalizeAppPathname = (pathname: string | null | undefined) => {
     return "/";
   }
 
-  if (pathname.startsWith(`${BASE_PATH_PREFIX}/`)) {
-    return pathname.slice(BASE_PATH_PREFIX.length);
+  const withoutBasePath = pathname.startsWith(`${BASE_PATH_PREFIX}/`)
+    ? pathname.slice(BASE_PATH_PREFIX.length)
+    : pathname;
+
+  if (!withoutBasePath || withoutBasePath === "/") {
+    return "/";
   }
 
-  return pathname;
+  return withoutBasePath.replace(/\/+$/, "") || "/";
 };
