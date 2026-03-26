@@ -29,12 +29,14 @@ npm run lint
 
 ```bash
 VITE_LOGIN_URL=https://tu-login-externo.com
+VITE_PASARELA_ORIGIN=https://tu-pasarela-externa.com
 VITE_DOCS_URL=https://tu-documentacion-externa.com
 VITE_TERMINAL_POS_URL=https://antillapos.vercel.app
 VITE_COMPANY_URL=https://tu-pagina-comercial-antilla-capital.com
 ```
 
-- Si no se define `VITE_LOGIN_URL`, el fallback actual redirige a `/`.
+- En desarrollo local, si no se define `VITE_LOGIN_URL` ni `VITE_PASARELA_ORIGIN`, el botón usa `/pasarela/signin` y lo resuelve el stack local de `npm run dev`.
+- En Vercel, si no se define `VITE_LOGIN_URL` ni `VITE_PASARELA_ORIGIN`, el botón abre la ruta `/signin` del sitio comercial para mostrar un aviso de configuración pendiente.
 - Si no se define `VITE_DOCS_URL`, el fallback actual redirige a `/`.
 - Si no se define `VITE_TERMINAL_POS_URL`, el fallback actual usa `https://antillapos.vercel.app`.
 - Si no se define `VITE_COMPANY_URL`, el fallback actual redirige a `/`.

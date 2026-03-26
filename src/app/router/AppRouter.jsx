@@ -9,6 +9,7 @@ const marketingPageComponents = Object.freeze({
   Home: lazy(() => import("@/pages/Home")),
   Products: lazy(() => import("@/pages/Products")),
   Developers: lazy(() => import("@/pages/Developers")),
+  SignInRedirect: lazy(() => import("@/pages/SignInRedirect")),
   Solutions: lazy(() => import("@/pages/Solutions")),
   SolutionPymes: lazy(() => import("@/pages/SolutionPymes")),
   SolutionRetail: lazy(() => import("@/pages/SolutionRetail")),
@@ -62,10 +63,23 @@ function renderMarketingRoutes() {
 }
 
 export default function AppRouter() {
+  const SignInRedirectPage = marketingPageComponents.SignInRedirect;
+
   return (
     <BrowserRouter>
       <Suspense fallback={<RouteLoader />}>
         <Routes>
+          <Route
+            path="/signin"
+            element={
+              <RouteErrorBoundary>
+                <MarketingLayout>
+                  <SignInRedirectPage />
+                </MarketingLayout>
+              </RouteErrorBoundary>
+            }
+          />
+
           {renderMarketingRoutes()}
 
           <Route path="*" element={<Navigate to="/" replace />} />

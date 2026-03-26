@@ -1,4 +1,5 @@
-const PASARELA_LOGIN_PATH = "/pasarela/signin";
+const SIGNIN_FALLBACK_PATH = "/signin";
+const LOCAL_PASARELA_SIGNIN_PATH = "/pasarela/signin";
 
 function normalizeConfiguredUrl(value) {
   return typeof value === "string" && value.trim().length > 0
@@ -6,7 +7,7 @@ function normalizeConfiguredUrl(value) {
     : null;
 }
 
-export function getLoginRedirectUrl() {
+export function getConfiguredLoginUrl() {
   const configuredUrl = normalizeConfiguredUrl(import.meta.env.VITE_LOGIN_URL);
 
   if (configuredUrl) {
@@ -18,14 +19,24 @@ export function getLoginRedirectUrl() {
   );
 
   if (configuredOrigin) {
-    return new URL(PASARELA_LOGIN_PATH, configuredOrigin).toString();
+    return new URL(SIGNIN_FALLBACK_PATH, configuredOrigin).toString();
   }
 
-  if (typeof window === "undefined") {
-    return PASARELA_LOGIN_PATH;
+  return null;
+}
+
+export function getLoginRedirectUrl() {
+  const configuredLoginUrl = getConfiguredLoginUrl();
+
+  if (configuredLoginUrl) {
+    return configuredLoginUrl;
   }
 
-  return PASARELA_LOGIN_PATH;
+  if (import.meta.env.DEV) {
+    return LOCAL_PASARELA_SIGNIN_PATH;
+  }
+
+  return SIGNIN_FALLBACK_PATH;
 }
 
 export function redirectToLogin() {
